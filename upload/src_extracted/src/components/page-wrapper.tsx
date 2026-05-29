@@ -1,0 +1,85 @@
+'use client';
+
+import React, { useState } from 'react';
+import { Sidebar } from './sidebar';
+import { useStateManager } from '@/hooks/use-local-storage';
+import { BRAND } from '@/lib/branding';
+
+interface PageWrapperProps {
+  children: React.ReactNode;
+  title?: string;
+}
+
+export function PageWrapper({ children, title }: PageWrapperProps) {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [aiToolsOpen, setAiToolsOpen] = useState(false);
+  const { sidebarCollapsed } = useStateManager();
+
+  return (
+    <div style={styles.layout}>
+      <Sidebar
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+        onOpenAITools={() => setAiToolsOpen(true)}
+      />
+      <main style={{ ...styles.main, marginLeft: sidebarCollapsed ? 72 : 260 }}>
+        {title && (
+          <div style={styles.header}>
+            <button
+              style={styles.menuBtn}
+              onClick={() => setSidebarOpen(true)}
+              aria-label="Menu"
+            >
+              ☰
+            </button>
+            <h1 style={styles.title}>{title}</h1>
+          </div>
+        )}
+        <div style={styles.content}>{children}</div>
+      </main>
+    </div>
+  );
+}
+
+const styles: Record<string, React.CSSProperties> = {
+  layout: {
+    display: 'flex',
+    minHeight: '100vh',
+    background: '#f5f6fa',
+    fontFamily: "'DM Sans', -apple-system, sans-serif",
+  },
+  main: {
+    flex: 1,
+    transition: 'margin-left 0.3s ease',
+    minHeight: '100vh',
+    display: 'flex',
+    flexDirection: 'column' as const,
+  },
+  header: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 16,
+    padding: '16px 24px',
+    background: '#fff',
+    borderBottom: '1px solid #e8e8ef',
+  },
+  menuBtn: {
+    background: 'none',
+    border: 'none',
+    fontSize: 24,
+    cursor: 'pointer',
+    color: '#333',
+    padding: '4px 8px',
+    borderRadius: 8,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 700,
+    color: '#1a1a2e',
+    margin: 0,
+  },
+  content: {
+    flex: 1,
+    padding: 24,
+  },
+};

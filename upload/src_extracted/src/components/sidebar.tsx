@@ -1,0 +1,123 @@
+'use client';
+
+import React from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import {
+  Home, Users, CalendarDays, Wand2,
+  BarChart3, BookOpen, Settings, Archive,
+} from 'lucide-react';
+import { useTemplate } from '@/components/template-provider';
+import { BRAND } from '@/lib/branding';
+
+interface SidebarProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onOpenAITools: () => void;
+}
+
+export function Sidebar({ isOpen, onClose, onOpenAITools }: SidebarProps) {
+  const pathname = usePathname();
+  const template = useTemplate();
+  const t = template.terminology;
+
+  const navSections = [
+    {
+      title: 'Main',
+      items: [
+        { icon: Home, label: 'Dashboard', href: '/' },
+        { icon: Users, label: t.clientPlural, href: '/klien' },
+        { icon: Archive, label: t.clientInactive, href: '/klien-tidak-aktif' },
+        { icon: CalendarDays, label: 'Jadwal', href: '/jadwal' },
+      ],
+    },
+    {
+      title: 'AI Tools',
+      items: [
+        { icon: Wand2, label: 'AI Assistant', href: null, isAI: true },
+        { icon: BarChart3, label: 'Analytics', href: '/analytics' },
+        { icon: BookOpen, label: 'Templates', href: '/templates' },
+      ],
+    },
+    {
+      title: 'Settings',
+      items: [
+        { icon: Settings, label: 'Pengaturan', href: '/pengaturan' },
+      ],
+    },
+  ];
+
+  const handleNavClick = (item: { isAI?: boolean; href?: string | null }) => {
+    if (item.isAI) {
+      onOpenAITools();
+      onClose();
+      return;
+    }
+    onClose();
+  };
+
+  const isActive = (href: string | null) => {
+    if (!href) return false;
+    if (href === '/') return pathname === '/';
+    return pathname.startsWith(href);
+  };
+
+  return (
+    <>
+      {isOpen && (
+        <div className="coachflo-sidebar-overlay" onClick={onClose} />
+      )}
+      <aside className={`coachflo-sidebar${isOpen ? ' open' : ''}`}>
+        <div className="coachflo-sidebar-header">
+          <Link href="/" style={{ textDecoration: 'none' }}>
+            <div className="coachflo-brand">
+              <div className="coachflo-brand-icon">{BRAND.icon}</div>
+              <div className="coachflo-brand-text">
+                <div className="coachflo-brand-name">{BRAND.name}</div>
+                <div className="coachflo-brand-tagline">{BRAND.tagline}</div>
+              </div>
+            </div>
+          </Link>
+        </div>
+
+        <nav className="coachflo-nav">
+          {navSections.map((section) => (
+            <div key={section.title} className="coachflo-nav-section">
+              <div className="coachflo-nav-section-title">{section.title}</div>
+              {section.items.map((item) => {
+                const Icon = item.icon;
+                const active = isActive(item.href ?? null);
+
+                if (item.isAI) {
+                  return (
+                    <button
+                      key={item.label}
+                      className={`coachflo-nav-item${active ? ' active' : ''}`}
+                      onClick={() => handleNavClick(item)}
+                    >
+                      <span className="coachflo-nav-icon"><Icon size={18} /></span>
+                      <span>{item.label}</span>
+                    </button>
+                  );
+                }
+
+                return (
+                  <Link
+                    key={item.label}
+                    href={item.href!}
+                    onClick={() => onClose()}
+                    className={`coachflo-nav-item${active ? ' active' : ''}`}
+                    style={{ textDecoration: 'none' }}
+                  >
+                    <span className="coachflo-nav-icon"><Icon size={18} /></span>
+                    <span>{item.label}</span>
+                  </Link>
+                );
+              })}
+            </div>
+          ))}
+        </nav>
+      </aside>
+    </>
+  );
+}

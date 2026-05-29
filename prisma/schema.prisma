@@ -1,0 +1,108 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Organization {
+  id         String   @id @default(cuid())
+  name       String
+  slug       String   @unique
+  templateId String   @default("manifestasi")
+  createdAt  DateTime @default(now())
+  clients    Client[]
+}
+
+model Client {
+  id             String       @id @default(cuid())
+  orgId          String       @default("default")
+  org            Organization @relation(fields: [orgId], references: [id])
+  coachId        String       @default("default")
+  name           String
+  email          String?
+  whatsapp       String?
+  phone          String?
+  company        String?
+  jobTitle       String?
+  avatar         String?
+  status         String       @default("active")
+  phase          String       @default("")
+  goal           String?
+  bio            String?
+  tags           String       @default("[]")
+  progress       Int          @default(0)
+  totalSessions  Int          @default(0)
+  nextSession    String?
+  lastSessionAt  String?
+  goalFocusArea  String?
+  templateData   String       @default("{}")
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  sessions   Session[]
+  notes      ClientNote[]
+  goals      ClientGoal[]
+  files      ClientFile[]
+}
+
+model Session {
+  id          String   @id @default(cuid())
+  clientId    String
+  client      Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  type        String
+  title       String
+  date        String
+  duration    Int      @default(60)
+  notes       String   @default("")
+  summary     String?
+  actionItems String   @default("[]")
+  mood        String?
+  insights    String   @default("[]")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ClientNote {
+  id        String   @id @default(cuid())
+  clientId  String
+  client    Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  content   String
+  type      String
+  isPinned  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ClientGoal {
+  id          String   @id @default(cuid())
+  clientId    String
+  client      Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  title       String
+  description String?
+  targetDate  String?
+  progress    Int      @default(0)
+  status      String   @default("active")
+  category    String?
+  milestones  String   @default("[]")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ClientFile {
+  id          String   @id @default(cuid())
+  clientId    String
+  client      Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  name        String
+  type        String
+  size        Int      @default(0)
+  category    String
+  description String?
+  uploadedAt  String
+  content     String?
+}
