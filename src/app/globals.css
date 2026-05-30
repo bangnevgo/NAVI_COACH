@@ -1425,16 +1425,23 @@ button:hover .nevgo-ai-client-name,
 }
 
 /* Hide sidebar on the dashboard preview on small screens */
+/* Dashboard preview: scale down on mobile so nothing is cropped */
 @media (max-width: 768px) {
-  .dash-content-preview .dash-sidebar-preview,
-  .dash-content-preview .dash-floating-ai,
-  .steps-grid .step-connector,
-  .features-grid .step-connector,
-  .nav-links-desktop {
-    display: none !important;
+  .dash-preview-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
-  .dash-content-preview {
-    flex-direction: column;
+  .dash-preview-wrapper .dash-frame {
+    min-width: 680px;
+    font-size: 85%;
+  }
+}
+
+/* Ultra-small screens: let the preview scroll horizontally */
+@media (max-width: 480px) {
+  .dash-preview-wrapper {
+    margin: 0 -16px;
+    padding: 0 16px;
   }
 }
 

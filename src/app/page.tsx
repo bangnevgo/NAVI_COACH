@@ -658,6 +658,17 @@ function FeatureCard({ icon: Icon, title, description, color, bg, delay }: {
 function DashboardPreview() {
   const { ref, visible } = useInView(0.1);
 
+  const sidebarItems = [
+    { icon: LayoutDashboard, label: 'Dashboard', active: true },
+    { icon: Users, label: 'Klien', active: false },
+    { icon: CalendarDays, label: 'Jadwal', active: false },
+    { icon: BarChart3, label: 'Analytics', active: false },
+    { icon: Brain, label: 'AI Tools', active: false },
+    { icon: Target, label: 'Goals', active: false },
+    { icon: FileText, label: 'Catatan', active: false },
+    { icon: Settings, label: 'Pengaturan', active: false },
+  ];
+
   const miniStats = [
     { icon: Users, value: '24', label: 'Total Klien', color: '#4C8DFF', bg: 'rgba(76,141,255,0.10)' },
     { icon: UserCheck, value: '18', label: 'Klien Aktif', color: '#2E9E6A', bg: 'rgba(46,158,106,0.10)' },
@@ -706,7 +717,8 @@ function DashboardPreview() {
       </div>
 
       {/* Dashboard Frame */}
-      <div style={styles.dashFrame}>
+      <div className="dash-preview-wrapper">
+      <div className="dash-frame" style={styles.dashFrame}>
         {/* Window Chrome */}
         <div style={styles.dashChrome}>
           <div style={styles.dashDots}>
@@ -721,8 +733,39 @@ function DashboardPreview() {
           <div style={{ width: 60 }} />
         </div>
 
-        {/* Dashboard Content */}
-        <div className="dash-content-preview" style={{ ...styles.dashContent, display: 'block' }}>
+        {/* Dashboard Content — flexbox with sidebar */}
+        <div className="dash-content-preview" style={styles.dashContent}>
+          {/* Sidebar */}
+          <div className="dash-sidebar-preview" style={styles.dashSidebar}>
+            <div style={styles.dashSidebarBrand}>
+              <div style={styles.dashSidebarLogo}>{BRAND.icon}</div>
+              <span style={styles.dashSidebarName}>{BRAND.name}</span>
+            </div>
+            <div style={styles.dashSidebarNav}>
+              {sidebarItems.map((item, i) => {
+                const Icon = item.icon;
+                return (
+                  <div key={i} style={{
+                    ...styles.dashSidebarItem,
+                    background: item.active ? 'rgba(76,141,255,0.10)' : 'transparent',
+                    color: item.active ? '#4C8DFF' : '#6B7280',
+                  }}>
+                    <Icon size={18} />
+                    <span>{item.label}</span>
+                  </div>
+                );
+              })}
+            </div>
+            <div style={styles.dashSidebarFooter}>
+              <div style={styles.dashSidebarItem}>
+                <HelpCircle size={14} />
+                <span>Bantuan</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Main Area */}
+          <div style={styles.dashMain}>
             {/* Topbar */}
             <div style={styles.dashTopbar}>
               <div style={styles.dashTopbarLeft}>
@@ -782,6 +825,15 @@ function DashboardPreview() {
                 <span style={styles.dashTemplateStat}>6 area fokus</span>
               </div>
             </div>
+            </div>
+          </div>
+
+          {/* Floating AI Panel Indicator */}
+          <div style={styles.dashFloatingAI}>
+            <div style={styles.dashFloatingAIInner}>
+              <Wand2 size={16} style={{ color: '#B49AF3' }} />
+              <span style={styles.dashFloatingAIText}>AI Assistant</span>
+            </div>
           </div>
         </div>
 
@@ -806,6 +858,7 @@ function DashboardPreview() {
             <ChevronRight size={16} />
           </Link>
         </div>
+      </div>
       </div>
     );
   }
@@ -1132,20 +1185,95 @@ const styles: Record<string, React.CSSProperties> = {
     border: '1px solid #E2E8F0',
   },
   dashContent: {
-    display: 'block',
-    minHeight: 200,
+    display: 'flex',
+    minHeight: 380,
   },
   dashSidebar: {
-    display: 'none',
+    width: 170,
+    borderRight: '1px solid #E2E8F0',
+    padding: '12px 8px',
+    display: 'flex',
+    flexDirection: 'column',
+    background: '#F8FAFC',
+    flexShrink: 0,
+  },
+  dashSidebarBrand: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 8,
+    padding: '8px 10px',
+    marginBottom: 12,
+  },
+  dashSidebarLogo: {
+    width: 24,
+    height: 24,
+    borderRadius: 6,
+    background: 'linear-gradient(135deg, #4C8DFF, #8B6FE8)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: '#fff',
+    fontWeight: 800,
+    fontSize: 12,
+    flexShrink: 0,
+  },
+  dashSidebarName: {
+    fontSize: 13,
+    fontWeight: 800,
+    color: '#1E293B',
+    letterSpacing: '-0.3px',
+  },
+  dashSidebarNav: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 2,
+    flex: 1,
+  },
+  dashSidebarItem: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 8,
+    padding: '7px 10px',
+    borderRadius: 6,
+    fontSize: 11,
+    fontWeight: 600,
+    transition: 'all 0.15s',
+  },
+  dashSidebarFooter: {
+    borderTop: '1px solid #E2E8F0',
+    paddingTop: 8,
+    marginTop: 8,
   },
 
   /* Dashboard Main Area */
   dashMain: {
     flex: 1,
     padding: 14,
-    overflow: 'visible',
+    overflow: 'hidden',
     background: '#FFFFFF',
     minWidth: 0,
+  },
+  dashFloatingAI: {
+    position: 'absolute',
+    bottom: 40,
+    right: 40,
+    animation: 'float 4s ease-in-out infinite',
+    zIndex: 10,
+  },
+  dashFloatingAIInner: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 8,
+    padding: '10px 16px',
+    background: '#FFFFFF',
+    border: '1px solid #E2E8F0',
+    borderRadius: 12,
+    boxShadow: '0 8px 32px rgba(139,111,232,0.15)',
+  },
+  dashFloatingAIText: {
+    fontSize: 12,
+    fontWeight: 700,
+    color: '#1E293B',
   },
   dashTopbar: {
     display: 'flex',
