@@ -1385,3 +1385,62 @@ button:hover .nevgo-ai-client-name,
     width: 100vw !important;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   Landing Page Responsive Styles
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 1024px) {
+  [style*="gridTemplateColumns: 'repeat(3"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  [style*="gridTemplateColumns: 'repeat(4"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Navbar */
+  [style*="navLinks"] {
+    display: none !important;
+  }
+  [style*="mobileMenuBtn"] {
+    display: flex !important;
+  }
+  [style*="mobileDropdown"] {
+    display: flex !important;
+  }
+  /* Hero */
+  [style*="heroStats"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 16px !important;
+    padding: 20px !important;
+  }
+  /* Feature/Steps/Benefits/Advantages/Testimonials grids */
+  [style*="featuresGrid"],
+  [style*="stepsGrid"],
+  [style*="benefitsGrid"],
+  [style*="advantagesGrid"],
+  [style*="testimonialsGrid"] {
+    grid-template-columns: 1fr !important;
+  }
+  /* Curiosity features */
+  [style*="curiosityFeatures"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 480px) {
+  [style*="heroStats"] {
+    grid-template-columns: 1fr !important;
+  }
+  [style*="heroButtons"] {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  [style*="heroPrimaryBtn"],
+  [style*="heroSecondaryBtn"] {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+}

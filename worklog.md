@@ -106,3 +106,38 @@ Stage Summary:
 - Quick chips for common queries per template
 - All 7 pages now properly open AI Assistant when sidebar button is clicked
 - Build passes successfully
+---
+Task ID: 1
+Agent: main
+Task: Create COACHFLO landing page with features, cara kerja, benefits, keunggulan, and curiosity sections
+
+Work Log:
+- Explored existing project structure at /home/z/my-project/
+- Moved dashboard from `/` to `/dashboard` route
+- Updated sidebar navigation to link Dashboard to `/dashboard` instead of `/`
+- Updated sidebar brand logo link to `/dashboard`
+- Updated `isActive` function to use `/dashboard` instead of `/`
+- Created comprehensive landing page at `/` with:
+  - Sticky navbar with scroll effect, mobile hamburger menu, theme toggle, and "Coba Demo" button
+  - Hero section with animated badge, gradient title, CTA buttons, and animated counter stats
+  - Features section (6 cards: Manajemen Klien, AI Assistant, Analytics, Penjadwalan, 7 Template Niche, Goal Tracking)
+  - Cara Kerja section (4 steps with animated entry)
+  - Benefit section (4 cards: Hemat Waktu, Insight AI, Pengalaman Premium, Data Aman)
+  - Keunggulan section (4 cards: Dibangun Khusus, Template Adaptif, AI Kontekstual, Skalabel)
+  - Curiosity/Teaser section with feature pills and CTA
+  - Testimonials section (3 cards with star ratings)
+  - Final CTA section
+  - Footer with brand and links
+- Fixed React Hooks rules-of-hooks violations by extracting components (HeroStatItem, StepCard, BenefitCard, AdvantageCard, TestimonialCard)
+- Added responsive CSS for landing page (breakpoints at 1024px, 768px, 480px)
+- Removed unused `mounted` state variable
+- Verified both `/` (landing) and `/dashboard` routes return 200
+- Lint passes for page.tsx with no errors
+
+Stage Summary:
+- Landing page successfully created at `/` route
+- Dashboard moved to `/dashboard` route
+- All sidebar links updated
+- Dark theme fully supported via CSS variables
+- Landing page has: Hero, Fitur, Cara Kerja, Benefit, Keunggulan, Rasa Penasaran, Testimoni, CTA, Footer
+- "Coba Demo" button navigates to `/dashboard`

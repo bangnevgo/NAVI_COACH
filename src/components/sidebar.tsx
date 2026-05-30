@@ -26,7 +26,7 @@ export function Sidebar({ isOpen, onClose, onOpenAITools }: SidebarProps) {
     {
       title: 'Main',
       items: [
-        { icon: Home, label: 'Dashboard', href: '/' },
+        { icon: Home, label: 'Dashboard', href: '/dashboard' },
         { icon: Users, label: t.clientPlural, href: '/klien' },
         { icon: Archive, label: t.clientInactive, href: '/klien-tidak-aktif' },
         { icon: CalendarDays, label: 'Jadwal', href: '/jadwal' },
@@ -59,7 +59,7 @@ export function Sidebar({ isOpen, onClose, onOpenAITools }: SidebarProps) {
 
   const isActive = (href: string | null) => {
     if (!href) return false;
-    if (href === '/') return pathname === '/';
+    if (href === '/dashboard') return pathname === '/dashboard';
     return pathname.startsWith(href);
   };
 
@@ -70,7 +70,7 @@ export function Sidebar({ isOpen, onClose, onOpenAITools }: SidebarProps) {
       )}
       <aside className={`nevgo-sidebar${isOpen ? ' open' : ''}`}>
         <div className="nevgo-sidebar-header">
-          <Link href="/" style={{ textDecoration: 'none' }}>
+          <Link href="/dashboard" style={{ textDecoration: 'none' }}>
             <div className="nevgo-brand">
               <div className="nevgo-brand-icon">{BRAND.icon}</div>
               <div className="nevgo-brand-text">
