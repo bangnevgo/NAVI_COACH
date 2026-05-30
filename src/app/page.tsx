@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { useTheme } from 'next-themes';
 import {
   Users, Brain, BarChart3, CalendarDays, BookOpen, Wand2,
   Target, TrendingUp, Shield, Zap, ChevronRight, ArrowRight,
@@ -73,7 +72,6 @@ function useInView(threshold = 0.15) {
 export default function LandingPage() {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { theme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);

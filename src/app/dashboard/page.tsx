@@ -66,6 +66,7 @@ export default function DashboardPage() {
   const [error, setError] = useState<string | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [aiToolsOpen, setAiToolsOpen] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(false);
 
   useEffect(() => {
     fetch('/api/analytics')
@@ -83,6 +84,10 @@ export default function DashboardPage() {
       .catch(() => {
         setError(null);
       });
+  }, []);
+
+  useEffect(() => {
+    setShowWelcome(!localStorage.getItem('coachflo_active_template'));
   }, []);
 
   const phaseCounts = template.phases.map((phase) => ({
@@ -107,7 +112,7 @@ export default function DashboardPage() {
           <ThemeToggle />
         </div>
     <div style={styles.container}>
-      {typeof window !== 'undefined' && !localStorage.getItem('coachflo_active_template') && (
+      {showWelcome && (
         <div style={styles.welcomeBanner}>
           <div style={styles.welcomeContent}>
             <div style={styles.welcomeText}>
