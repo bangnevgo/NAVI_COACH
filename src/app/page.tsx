@@ -240,10 +240,10 @@ export default function LandingPage() {
         boxShadow: scrolled ? 'var(--shadow-04)' : 'none',
       }}>
         <div style={styles.navContent}>
-          <div style={styles.navBrand}>
+          <Link href="/" style={styles.navBrand}>
             <div style={styles.navLogo}>{BRAND.icon}</div>
             <span style={styles.navName}>{BRAND.name}</span>
-          </div>
+          </Link>
           <div style={{ ...styles.navLinks, ...(mobileMenu ? styles.navLinksMobile : {}) }}>
             <a href="#fitur" style={styles.navLink} onClick={() => setMobileMenu(false)}>Fitur</a>
             <a href="#cara-kerja" style={styles.navLink} onClick={() => setMobileMenu(false)}>Cara Kerja</a>

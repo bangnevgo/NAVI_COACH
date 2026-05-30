@@ -26,6 +26,7 @@ export function Sidebar({ isOpen, onClose, onOpenAITools }: SidebarProps) {
     {
       title: 'Main',
       items: [
+        { icon: Home, label: 'Beranda', href: '/' },
         { icon: Home, label: 'Dashboard', href: '/dashboard' },
         { icon: Users, label: t.clientPlural, href: '/klien' },
         { icon: Archive, label: t.clientInactive, href: '/klien-tidak-aktif' },
@@ -70,7 +71,7 @@ export function Sidebar({ isOpen, onClose, onOpenAITools }: SidebarProps) {
       )}
       <aside className={`nevgo-sidebar${isOpen ? ' open' : ''}`}>
         <div className="nevgo-sidebar-header">
-          <Link href="/dashboard" style={{ textDecoration: 'none' }}>
+          <Link href="/" style={{ textDecoration: 'none' }}>
             <div className="nevgo-brand">
               <div className="nevgo-brand-icon">{BRAND.icon}</div>
               <div className="nevgo-brand-text">
