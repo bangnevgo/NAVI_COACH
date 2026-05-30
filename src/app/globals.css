@@ -1387,60 +1387,59 @@ button:hover .nevgo-ai-client-name,
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   Landing Page Responsive Styles
+   Landing Page Mobile Helpers
+   Note: responsive overrides are handled via inline media queries
+   in the page component — these CSS rules target the interactive
+   nav behavior (mobile menu open/close) and nevgo app layout.
    ═══════════════════════════════════════════════════════════════ */
 
-@media (max-width: 1024px) {
-  [style*="gridTemplateColumns: 'repeat(3"] {
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
-  [style*="gridTemplateColumns: 'repeat(4"] {
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
-}
-
 @media (max-width: 768px) {
-  /* Navbar */
-  [style*="navLinks"] {
-    display: none !important;
-  }
-  [style*="mobileMenuBtn"] {
-    display: flex !important;
-  }
-  [style*="mobileDropdown"] {
-    display: flex !important;
-  }
-  /* Hero */
-  [style*="heroStats"] {
+  .hero-stats-grid {
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 16px !important;
-    padding: 20px !important;
+    gap: 12px !important;
+    padding: 16px !important;
   }
-  /* Feature/Steps/Benefits/Advantages/Testimonials grids */
-  [style*="featuresGrid"],
-  [style*="stepsGrid"],
-  [style*="benefitsGrid"],
-  [style*="advantagesGrid"],
-  [style*="testimonialsGrid"] {
+  .hero-buttons {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  .hero-buttons > * {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+  .landing-grid-3 {
     grid-template-columns: 1fr !important;
   }
-  /* Curiosity features */
-  [style*="curiosityFeatures"] {
+  .landing-grid-4 {
+    grid-template-columns: 1fr !important;
+  }
+  .landing-grid-2 {
     grid-template-columns: 1fr !important;
   }
 }
 
 @media (max-width: 480px) {
-  [style*="heroStats"] {
+  .hero-stats-grid {
     grid-template-columns: 1fr !important;
   }
-  [style*="heroButtons"] {
-    flex-direction: column !important;
-    align-items: stretch !important;
+}
+
+/* Hide sidebar on the dashboard preview on small screens */
+@media (max-width: 768px) {
+  .dash-content-preview .dash-sidebar-preview,
+  .dash-content-preview .dash-floating-ai,
+  .steps-grid .step-connector,
+  .features-grid .step-connector,
+  .nav-links-desktop {
+    display: none !important;
   }
-  [style*="heroPrimaryBtn"],
-  [style*="heroSecondaryBtn"] {
-    width: 100% !important;
-    justify-content: center !important;
+  .dash-content-preview {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 769px) {
+  .nav-mobile-only {
+    display: none !important;
   }
 }

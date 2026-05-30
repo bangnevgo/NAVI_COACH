@@ -244,13 +244,13 @@ export default function LandingPage() {
             <div style={styles.navLogo}>{BRAND.icon}</div>
             <span style={styles.navName}>{BRAND.name}</span>
           </Link>
-          <div style={{ ...styles.navLinks, ...(mobileMenu ? styles.navLinksMobile : {}) }}>
+          <nav className="nav-links-desktop" style={{ ...styles.navLinks, ...(mobileMenu ? styles.navLinksMobile : {}) }}>
             <a href="#fitur" style={styles.navLink} onClick={() => setMobileMenu(false)}>Fitur</a>
             <a href="#cara-kerja" style={styles.navLink} onClick={() => setMobileMenu(false)}>Cara Kerja</a>
             <a href="#benefit" style={styles.navLink} onClick={() => setMobileMenu(false)}>Benefit</a>
             <a href="#keunggulan" style={styles.navLink} onClick={() => setMobileMenu(false)}>Keunggulan</a>
             <a href="#testimoni" style={styles.navLink} onClick={() => setMobileMenu(false)}>Testimoni</a>
-          </div>
+          </nav>
           <div style={styles.navActions}>
             <ThemeToggle />
             <Link href="/dashboard" style={styles.demoBtn} >
@@ -337,7 +337,7 @@ export default function LandingPage() {
             <h2 style={styles.sectionTitle}>Semua yang Anda Butuhkan <br /><span style={styles.gradientText}>dalam Satu Platform</span></h2>
             <p style={styles.sectionSubtitle}>COACHFLO menyediakan tools lengkap yang dirancang khusus untuk memenuhi kebutuhan coaching profesional modern.</p>
           </div>
-          <div style={styles.featuresGrid}>
+          <div className="landing-grid-3" style={styles.featuresGrid}>
             {features.map((f, i) => {
               const Icon = f.icon;
               return (
@@ -1107,13 +1107,13 @@ const styles: Record<string, React.CSSProperties> = {
   },
   heroStats: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(4, 1fr)',
-    gap: 24,
-    marginTop: 64,
-    padding: '28px 32px',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
+    gap: 16,
+    marginTop: 48,
+    padding: '20px 16px',
     background: 'var(--surface-primary)',
     border: '1px solid var(--border-primary)',
-    borderRadius: 20,
+    borderRadius: 16,
     boxShadow: 'var(--shadow-08)',
     animation: 'slideUp 0.6s cubic-bezier(0.8, 0, 0.2, 1) 0.4s backwards',
   },
@@ -1121,7 +1121,7 @@ const styles: Record<string, React.CSSProperties> = {
     textAlign: 'center',
   },
   heroStatValue: {
-    fontSize: 28,
+    fontSize: 24,
     fontWeight: 800,
     background: 'linear-gradient(135deg, var(--fluent-blue), var(--fluent-purple))',
     WebkitBackgroundClip: 'text',
@@ -1195,6 +1195,7 @@ const styles: Record<string, React.CSSProperties> = {
     background: '#F8FAFC',
     flexShrink: 0,
   },
+  /* On mobile, sidebar is hidden — added via className instead */
   dashSidebarBrand: {
     display: 'flex',
     alignItems: 'center',
@@ -1488,8 +1489,8 @@ const styles: Record<string, React.CSSProperties> = {
   /* Features Grid */
   featuresGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
-    gap: 24,
+    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+    gap: 20,
   },
   featureCard: {
     background: 'var(--surface-primary)',
@@ -1523,8 +1524,8 @@ const styles: Record<string, React.CSSProperties> = {
   /* Steps */
   stepsGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(4, 1fr)',
-    gap: 24,
+    gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+    gap: 20,
     position: 'relative',
   },
   stepCard: {
@@ -1569,8 +1570,8 @@ const styles: Record<string, React.CSSProperties> = {
   /* Benefits */
   benefitsGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(2, 1fr)',
-    gap: 24,
+    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+    gap: 20,
   },
   benefitCard: {
     background: 'var(--surface-primary)',
@@ -1607,8 +1608,8 @@ const styles: Record<string, React.CSSProperties> = {
   /* Advantages */
   advantagesGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(2, 1fr)',
-    gap: 24,
+    gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+    gap: 20,
   },
   advantageCard: {
     background: 'var(--surface-secondary)',
@@ -1686,7 +1687,7 @@ const styles: Record<string, React.CSSProperties> = {
   },
   curiosityFeatures: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(2, 1fr)',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
     gap: 12,
     marginBottom: 36,
     maxWidth: 500,
@@ -1728,8 +1729,8 @@ const styles: Record<string, React.CSSProperties> = {
   /* Testimonials */
   testimonialsGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
-    gap: 24,
+    gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+    gap: 20,
   },
   testimonialCard: {
     background: 'var(--surface-primary)',
