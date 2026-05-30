@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   reactStrictMode: false,
+  trailingSlash: true,
 };
 
 export default nextConfig;
