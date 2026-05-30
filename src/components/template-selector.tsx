@@ -20,7 +20,7 @@ export function TemplateSelector({ selectedId, onSelect }: TemplateSelectorProps
       return;
     }
     if (typeof window !== 'undefined') localStorage.setItem('coachflo_active_template', template.id);
-    router.push('/');
+    router.push('/dashboard');
   };
 
   return (
