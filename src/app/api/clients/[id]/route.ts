@@ -72,6 +72,44 @@ export async function PUT(request: NextRequest, context: RouteContext) {
   }
 }
 
+export async function PATCH(request: NextRequest, context: RouteContext) {
+  try {
+    const { id } = await context.params;
+    const body = await request.json();
+
+    const updateData: Record<string, unknown> = {};
+    const fields = ['name', 'email', 'whatsapp', 'phone', 'company', 'jobTitle', 'avatar',
+      'status', 'phase', 'goal', 'bio', 'goalFocusArea', 'progress', 'totalSessions',
+      'nextSession', 'lastSessionAt'];
+
+    fields.forEach((field) => {
+      if (body[field] !== undefined) updateData[field] = body[field];
+    });
+
+    if (body.tags) updateData.tags = JSON.stringify(body.tags);
+    if (body.templateData) updateData.templateData = JSON.stringify(body.templateData);
+
+    if (Object.keys(updateData).length === 0) {
+      return NextResponse.json({ error: 'Tidak ada data untuk diupdate' }, { status: 400 });
+    }
+
+    const client = await db.client.update({
+      where: { id },
+      data: updateData,
+    });
+
+    return NextResponse.json({
+      ...client,
+      tags: JSON.parse(client.tags || '[]'),
+    });
+  } catch (error) {
+    return NextResponse.json(
+      { error: `Gagal update klien: ${error instanceof Error ? error.message : String(error)}` },
+      { status: 500 }
+    );
+  }
+}
+
 export async function DELETE(request: NextRequest, context: RouteContext) {
   try {
     const { id } = await context.params;
