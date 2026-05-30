@@ -141,3 +141,31 @@ Stage Summary:
 - Dark theme fully supported via CSS variables
 - Landing page has: Hero, Fitur, Cara Kerja, Benefit, Keunggulan, Rasa Penasaran, Testimoni, CTA, Footer
 - "Coba Demo" button navigates to `/dashboard`
+
+---
+Task ID: 4
+Agent: main
+Task: Add dashboard application illustration above the "Fitur Unggulan" row on the landing page
+
+Work Log:
+- Analyzed existing landing page structure and dashboard page design
+- Created DashboardPreview component with full visual mockup of COACHFLO dashboard
+- Added window chrome (macOS-style dots, URL bar with lock icon)
+- Rendered sidebar with 8 navigation items (Dashboard highlighted as active)
+- Rendered 6 stat cards (Total Klien, Klien Aktif, Goals Tercapai, Tidak Aktif, Total Sesi, Rata-rata)
+- Rendered phase distribution cards (Discovery, Planning, Action, Review) with color-coded borders
+- Rendered template info badge (Manifestasi template with stats)
+- Added floating AI Assistant indicator with float animation
+- Added "Coba Langsung di Demo" CTA button below the preview
+- Added section header with "Tampilan Dashboard" badge and gradient title
+- Positioned the dashboard preview section between the Hero and the Fitur Unggulan section
+- Added all necessary styles (40+ new style properties for the dashboard mockup)
+- Build verified successfully with no errors
+
+Stage Summary:
+- Dashboard illustration added above the "Fitur Unggulan" section
+- Illustration shows realistic COACHFLO dashboard mockup with sidebar, stats, phases, and template info
+- Floating AI Assistant indicator adds visual interest
+- CTA button below preview encourages users to try the demo
+- Smooth scroll-in animation via IntersectionObserver
+- Fully compatible with dark/light themes via CSS variables

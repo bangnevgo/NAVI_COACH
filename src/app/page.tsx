@@ -8,7 +8,8 @@ import {
   Target, TrendingUp, Shield, Zap, ChevronRight, ArrowRight,
   CheckCircle, Star, Menu, X, Moon, Sun, Sparkles, Layers,
   Clock, Heart, Lightbulb, Rocket, Eye, MessageCircle,
-  PlayCircle, Award, Globe, Lock
+  PlayCircle, Award, Globe, Lock, UserCheck, Archive,
+  LayoutDashboard, Settings, FileText, HelpCircle
 } from 'lucide-react';
 import { BRAND } from '@/lib/branding';
 import { ThemeToggle } from '@/components/theme-toggle';
@@ -320,6 +321,11 @@ export default function LandingPage() {
             ))}
           </div>
         </div>
+      </section>
+
+      {/* ─── Dashboard Preview Illustration ─── */}
+      <section style={styles.dashboardPreviewSection}>
+        <DashboardPreview />
       </section>
 
       {/* ─── Features Section ─── */}
@@ -650,6 +656,213 @@ function FeatureCard({ icon: Icon, title, description, color, bg, delay }: {
   );
 }
 
+/* ─── Dashboard Preview Illustration ─── */
+function DashboardPreview() {
+  const { ref, visible } = useInView(0.1);
+
+  const sidebarItems = [
+    { icon: LayoutDashboard, label: 'Dashboard', active: true },
+    { icon: Users, label: 'Klien', active: false },
+    { icon: CalendarDays, label: 'Jadwal', active: false },
+    { icon: BarChart3, label: 'Analytics', active: false },
+    { icon: Brain, label: 'AI Tools', active: false },
+    { icon: Target, label: 'Goals', active: false },
+    { icon: FileText, label: 'Catatan', active: false },
+    { icon: Settings, label: 'Pengaturan', active: false },
+  ];
+
+  const miniStats = [
+    { icon: Users, value: '24', label: 'Total Klien', color: '#5B9FFF', bg: 'rgba(91,159,255,0.12)' },
+    { icon: UserCheck, value: '18', label: 'Klien Aktif', color: '#4CAF82', bg: 'rgba(76,175,130,0.12)' },
+    { icon: CheckCircle, value: '12', label: 'Goals Tercapai', color: '#B49AF3', bg: 'rgba(180,154,243,0.12)' },
+    { icon: Archive, value: '3', label: 'Tidak Aktif', color: '#F17F7F', bg: 'rgba(241,127,127,0.12)' },
+    { icon: Target, value: '47', label: 'Total Sesi', color: '#E8935D', bg: 'rgba(232,147,93,0.12)' },
+    { icon: TrendingUp, value: '72%', label: 'Rata-rata', color: '#4DBCC9', bg: 'rgba(77,188,201,0.12)' },
+  ];
+
+  const phases = [
+    { name: 'Discovery', count: 6, color: '#5B9FFF' },
+    { name: 'Planning', count: 5, color: '#B49AF3' },
+    { name: 'Action', count: 4, color: '#4CAF82' },
+    { name: 'Review', count: 3, color: '#E8935D' },
+  ];
+
+  return (
+    <div
+      ref={ref}
+      style={{
+        maxWidth: 1200,
+        margin: '0 auto',
+        padding: '0 24px',
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0)' : 'translateY(40px)',
+        transition: 'all 0.8s cubic-bezier(0.8, 0, 0.2, 1)',
+      }}
+    >
+      {/* Section Label */}
+      <div style={{ textAlign: 'center', marginBottom: 40 }}>
+        <div style={{
+          ...styles.sectionBadge,
+          background: 'rgba(77, 188, 201, 0.12)',
+          color: '#4DBCC9',
+          borderColor: 'rgba(77, 188, 201, 0.25)',
+        }}>
+          <Eye size={14} />
+          <span>Tampilan Dashboard</span>
+        </div>
+        <h2 style={{ ...styles.sectionTitle, marginBottom: 12 }}>
+          Intip Tampilan <span style={styles.gradientText}>COACHFLO</span>
+        </h2>
+        <p style={styles.sectionSubtitle}>
+          Dashboard yang intuitif dan powerful — semua data coaching Anda dalam satu layar.
+        </p>
+      </div>
+
+      {/* Dashboard Frame */}
+      <div style={styles.dashFrame}>
+        {/* Window Chrome */}
+        <div style={styles.dashChrome}>
+          <div style={styles.dashDots}>
+            <span style={{ ...styles.dashDot, background: '#FF5F57' }} />
+            <span style={{ ...styles.dashDot, background: '#FFBD2E' }} />
+            <span style={{ ...styles.dashDot, background: '#28CA41' }} />
+          </div>
+          <div style={styles.dashUrl}>
+            <Lock size={10} style={{ opacity: 0.5 }} />
+            <span>coachflo.app/dashboard</span>
+          </div>
+          <div style={{ width: 60 }} />
+        </div>
+
+        {/* Dashboard Content */}
+        <div style={styles.dashContent}>
+          {/* Sidebar */}
+          <div style={styles.dashSidebar}>
+            <div style={styles.dashSidebarBrand}>
+              <div style={styles.dashSidebarLogo}>{BRAND.icon}</div>
+              <span style={styles.dashSidebarName}>{BRAND.name}</span>
+            </div>
+            <div style={styles.dashSidebarNav}>
+              {sidebarItems.map((item, i) => {
+                const Icon = item.icon;
+                return (
+                  <div key={i} style={{
+                    ...styles.dashSidebarItem,
+                    background: item.active ? 'rgba(91,159,255,0.12)' : 'transparent',
+                    color: item.active ? '#5B9FFF' : 'var(--text-secondary)',
+                  }}>
+                    <Icon size={14} />
+                    <span>{item.label}</span>
+                  </div>
+                );
+              })}
+            </div>
+            <div style={styles.dashSidebarFooter}>
+              <div style={styles.dashSidebarItem}>
+                <HelpCircle size={14} />
+                <span>Bantuan</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Main Area */}
+          <div style={styles.dashMain}>
+            {/* Topbar */}
+            <div style={styles.dashTopbar}>
+              <div style={styles.dashTopbarLeft}>
+                <span style={styles.dashTopbarTitle}>Dashboard</span>
+                <span style={styles.dashTopbarSub}>Ringkasan klien dan coaching</span>
+              </div>
+              <div style={styles.dashTopbarRight}>
+                <div style={styles.dashThemeBtn}><Sun size={12} /></div>
+              </div>
+            </div>
+
+            {/* Stats Grid */}
+            <div style={styles.dashStatsGrid}>
+              {miniStats.map((s, i) => {
+                const Icon = s.icon;
+                return (
+                  <div key={i} style={styles.dashStatCard}>
+                    <div style={{ ...styles.dashStatIcon, background: s.bg, color: s.color }}>
+                      <Icon size={12} />
+                    </div>
+                    <div style={styles.dashStatInfo}>
+                      <div style={styles.dashStatValue}>{s.value}</div>
+                      <div style={styles.dashStatLabel}>{s.label}</div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Phase Distribution */}
+            <div style={styles.dashPhaseSection}>
+              <div style={styles.dashPhaseHeader}>
+                <span style={styles.dashPhaseTitle}>Distribusi Fase</span>
+                <span style={styles.dashPhaseSub}>Berdasarkan fase aktif</span>
+              </div>
+              <div style={styles.dashPhaseGrid}>
+                {phases.map((p, i) => (
+                  <div key={i} style={{ ...styles.dashPhaseCard, borderLeftColor: p.color }}>
+                    <div style={styles.dashPhaseInfo}>
+                      <div style={styles.dashPhaseName}>{p.name}</div>
+                    </div>
+                    <div style={{ ...styles.dashPhaseCount, color: p.color }}>{p.count}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Template Badge */}
+            <div style={styles.dashTemplateInfo}>
+              <div style={{ ...styles.dashTemplateBadge, background: '#5B9FFF' }}>
+                Manifestasi
+              </div>
+              <div style={styles.dashTemplateDetails}>
+                <span style={styles.dashTemplateStat}>4 fase</span>
+                <span style={styles.dashTemplateStat}>5 tipe sesi</span>
+                <span style={styles.dashTemplateStat}>8 tools AI</span>
+                <span style={styles.dashTemplateStat}>6 area fokus</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Floating AI Panel Indicator */}
+      <div style={styles.dashFloatingAI}>
+        <div style={styles.dashFloatingAIInner}>
+          <Wand2 size={16} style={{ color: '#B49AF3' }} />
+          <span style={styles.dashFloatingAIText}>AI Assistant</span>
+        </div>
+      </div>
+
+      {/* CTA Below Preview */}
+      <div style={{ textAlign: 'center', marginTop: 32 }}>
+        <Link href="/dashboard" style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: 8,
+          padding: '12px 24px',
+          background: 'linear-gradient(135deg, var(--fluent-blue), var(--fluent-purple))',
+          color: '#fff',
+          fontSize: 15,
+          fontWeight: 700,
+          borderRadius: 12,
+          textDecoration: 'none',
+          boxShadow: '0 4px 16px rgba(76,141,255,0.3)',
+          transition: 'all 0.2s',
+        }}>
+          <PlayCircle size={18} />
+          Coba Langsung di Demo
+          <ChevronRight size={16} />
+        </Link>
+      </div>
+    </div>
+  );
+}
+
 /* ─── Layout Helpers ─── */
 function SectionWrapper({ children }: { children: React.ReactNode }) {
   return <div style={styles.sectionInner}>{children}</div>;
@@ -923,6 +1136,299 @@ const styles: Record<string, React.CSSProperties> = {
     color: 'var(--text-secondary)',
     fontWeight: 600,
     marginTop: 4,
+  },
+
+  /* Dashboard Preview Section */
+  dashboardPreviewSection: {
+    padding: '60px 24px 80px 24px',
+    position: 'relative',
+    overflow: 'hidden',
+  },
+
+  /* Dashboard Frame */
+  dashFrame: {
+    borderRadius: 16,
+    overflow: 'hidden',
+    border: '1px solid var(--border-primary)',
+    boxShadow: '0 20px 80px rgba(0,0,0,0.12), 0 0 0 1px rgba(255,255,255,0.05)',
+    background: 'var(--surface-primary)',
+    position: 'relative',
+  },
+  dashChrome: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: '10px 16px',
+    background: 'var(--surface-secondary)',
+    borderBottom: '1px solid var(--border-primary)',
+  },
+  dashDots: {
+    display: 'flex',
+    gap: 6,
+  },
+  dashDot: {
+    width: 10,
+    height: 10,
+    borderRadius: '50%',
+    display: 'block',
+  },
+  dashUrl: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 6,
+    padding: '4px 14px',
+    background: 'var(--surface-primary)',
+    borderRadius: 6,
+    fontSize: 11,
+    fontWeight: 500,
+    color: 'var(--text-tertiary)',
+    border: '1px solid var(--border-primary)',
+  },
+  dashContent: {
+    display: 'flex',
+    minHeight: 380,
+  },
+  dashSidebar: {
+    width: 170,
+    borderRight: '1px solid var(--border-primary)',
+    padding: '12px 8px',
+    display: 'flex',
+    flexDirection: 'column',
+    background: 'var(--surface-secondary)',
+    flexShrink: 0,
+  },
+  dashSidebarBrand: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 8,
+    padding: '8px 10px',
+    marginBottom: 12,
+  },
+  dashSidebarLogo: {
+    width: 24,
+    height: 24,
+    borderRadius: 6,
+    background: 'linear-gradient(135deg, var(--fluent-blue), var(--fluent-purple))',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: '#fff',
+    fontWeight: 800,
+    fontSize: 12,
+    flexShrink: 0,
+  },
+  dashSidebarName: {
+    fontSize: 13,
+    fontWeight: 800,
+    color: 'var(--text-primary)',
+    letterSpacing: '-0.3px',
+  },
+  dashSidebarNav: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 2,
+    flex: 1,
+  },
+  dashSidebarItem: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 8,
+    padding: '7px 10px',
+    borderRadius: 6,
+    fontSize: 11,
+    fontWeight: 600,
+    transition: 'all 0.15s',
+  },
+  dashSidebarFooter: {
+    borderTop: '1px solid var(--border-primary)',
+    paddingTop: 8,
+    marginTop: 8,
+  },
+
+  /* Dashboard Main Area */
+  dashMain: {
+    flex: 1,
+    padding: 14,
+    overflow: 'hidden',
+  },
+  dashTopbar: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 14,
+  },
+  dashTopbarLeft: {
+    display: 'flex',
+    alignItems: 'baseline',
+    gap: 10,
+  },
+  dashTopbarTitle: {
+    fontSize: 14,
+    fontWeight: 700,
+    color: 'var(--text-primary)',
+  },
+  dashTopbarSub: {
+    fontSize: 10,
+    color: 'var(--text-secondary)',
+  },
+  dashTopbarRight: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  dashThemeBtn: {
+    width: 28,
+    height: 28,
+    borderRadius: 6,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background: 'var(--surface-tertiary)',
+    color: 'var(--text-secondary)',
+  },
+
+  /* Dashboard Stats */
+  dashStatsGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(3, 1fr)',
+    gap: 8,
+    marginBottom: 14,
+  },
+  dashStatCard: {
+    background: 'var(--surface-secondary)',
+    border: '1px solid var(--border-primary)',
+    borderRadius: 8,
+    padding: '10px 12px',
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+  },
+  dashStatIcon: {
+    width: 30,
+    height: 30,
+    borderRadius: 8,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0,
+  },
+  dashStatInfo: {
+    minWidth: 0,
+  },
+  dashStatValue: {
+    fontSize: 15,
+    fontWeight: 700,
+    color: 'var(--text-primary)',
+    lineHeight: 1.2,
+  },
+  dashStatLabel: {
+    fontSize: 9,
+    color: 'var(--text-secondary)',
+    fontWeight: 500,
+    marginTop: 1,
+  },
+
+  /* Dashboard Phases */
+  dashPhaseSection: {
+    marginBottom: 14,
+  },
+  dashPhaseHeader: {
+    display: 'flex',
+    alignItems: 'baseline',
+    gap: 8,
+    marginBottom: 8,
+  },
+  dashPhaseTitle: {
+    fontSize: 12,
+    fontWeight: 700,
+    color: 'var(--text-primary)',
+  },
+  dashPhaseSub: {
+    fontSize: 9,
+    color: 'var(--text-tertiary)',
+  },
+  dashPhaseGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(4, 1fr)',
+    gap: 8,
+  },
+  dashPhaseCard: {
+    background: 'var(--surface-secondary)',
+    border: '1px solid var(--border-primary)',
+    borderLeft: '3px solid',
+    borderRadius: 8,
+    padding: '10px 12px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  dashPhaseInfo: {
+    flex: 1,
+  },
+  dashPhaseName: {
+    fontSize: 11,
+    fontWeight: 600,
+    color: 'var(--text-primary)',
+  },
+  dashPhaseCount: {
+    fontSize: 18,
+    fontWeight: 700,
+    flexShrink: 0,
+  },
+
+  /* Dashboard Template Info */
+  dashTemplateInfo: {
+    background: 'var(--surface-secondary)',
+    border: '1px solid var(--border-primary)',
+    borderRadius: 8,
+    padding: '10px 14px',
+    display: 'flex',
+    alignItems: 'center',
+    gap: 12,
+  },
+  dashTemplateBadge: {
+    padding: '4px 10px',
+    borderRadius: 5,
+    color: '#fff',
+    fontSize: 9,
+    fontWeight: 600,
+    flexShrink: 0,
+  },
+  dashTemplateDetails: {
+    display: 'flex',
+    gap: 6,
+    flexWrap: 'wrap' as const,
+  },
+  dashTemplateStat: {
+    fontSize: 9,
+    color: 'var(--text-secondary)',
+    padding: '3px 8px',
+    background: 'var(--surface-tertiary)',
+    borderRadius: 4,
+    fontWeight: 500,
+  },
+
+  /* Floating AI */
+  dashFloatingAI: {
+    position: 'absolute',
+    bottom: 50,
+    right: 'calc(50% - 540px)',
+    animation: 'float 4s ease-in-out infinite',
+    zIndex: 10,
+  },
+  dashFloatingAIInner: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 8,
+    padding: '10px 16px',
+    background: 'var(--surface-primary)',
+    border: '1px solid var(--border-primary)',
+    borderRadius: 12,
+    boxShadow: '0 8px 32px rgba(180,154,243,0.2)',
+  },
+  dashFloatingAIText: {
+    fontSize: 12,
+    fontWeight: 700,
+    color: 'var(--text-primary)',
   },
 
   /* Sections */
