@@ -672,26 +672,26 @@ function DashboardPreview() {
   ];
 
   const miniStats = [
-    { icon: Users, value: '24', label: 'Total Klien', color: '#5B9FFF', bg: 'rgba(91,159,255,0.12)' },
-    { icon: UserCheck, value: '18', label: 'Klien Aktif', color: '#4CAF82', bg: 'rgba(76,175,130,0.12)' },
-    { icon: CheckCircle, value: '12', label: 'Goals Tercapai', color: '#B49AF3', bg: 'rgba(180,154,243,0.12)' },
-    { icon: Archive, value: '3', label: 'Tidak Aktif', color: '#F17F7F', bg: 'rgba(241,127,127,0.12)' },
-    { icon: Target, value: '47', label: 'Total Sesi', color: '#E8935D', bg: 'rgba(232,147,93,0.12)' },
-    { icon: TrendingUp, value: '72%', label: 'Rata-rata', color: '#4DBCC9', bg: 'rgba(77,188,201,0.12)' },
+    { icon: Users, value: '24', label: 'Total Klien', color: '#4C8DFF', bg: 'rgba(76,141,255,0.10)' },
+    { icon: UserCheck, value: '18', label: 'Klien Aktif', color: '#2E9E6A', bg: 'rgba(46,158,106,0.10)' },
+    { icon: CheckCircle, value: '12', label: 'Goals Tercapai', color: '#8B6FE8', bg: 'rgba(139,111,232,0.10)' },
+    { icon: Archive, value: '3', label: 'Tidak Aktif', color: '#E86B6B', bg: 'rgba(232,107,107,0.10)' },
+    { icon: Target, value: '47', label: 'Total Sesi', color: '#D98A3E', bg: 'rgba(217,138,62,0.10)' },
+    { icon: TrendingUp, value: '72%', label: 'Rata-rata', color: '#2FA8B5', bg: 'rgba(47,168,181,0.10)' },
   ];
 
   const phases = [
-    { name: 'Discovery', count: 6, color: '#5B9FFF' },
-    { name: 'Planning', count: 5, color: '#B49AF3' },
-    { name: 'Action', count: 4, color: '#4CAF82' },
-    { name: 'Review', count: 3, color: '#E8935D' },
+    { name: 'Discovery', count: 6, color: '#4C8DFF' },
+    { name: 'Planning', count: 5, color: '#8B6FE8' },
+    { name: 'Action', count: 4, color: '#2E9E6A' },
+    { name: 'Review', count: 3, color: '#D98A3E' },
   ];
 
   return (
     <div
       ref={ref}
       style={{
-        maxWidth: 1200,
+        maxWidth: 900,
         margin: '0 auto',
         padding: '0 24px',
         opacity: visible ? 1 : 0,
@@ -748,8 +748,8 @@ function DashboardPreview() {
                 return (
                   <div key={i} style={{
                     ...styles.dashSidebarItem,
-                    background: item.active ? 'rgba(91,159,255,0.12)' : 'transparent',
-                    color: item.active ? '#5B9FFF' : 'var(--text-secondary)',
+                    background: item.active ? 'rgba(76,141,255,0.10)' : 'transparent',
+                    color: item.active ? '#4C8DFF' : '#6B7280',
                   }}>
                     <Icon size={14} />
                     <span>{item.label}</span>
@@ -784,7 +784,7 @@ function DashboardPreview() {
                 const Icon = s.icon;
                 return (
                   <div key={i} style={styles.dashStatCard}>
-                    <div style={{ ...styles.dashStatIcon, background: s.bg, color: s.color }}>
+                    <div style={{ ...styles.dashStatIcon, background: s.bg, color: s.color, border: '1px solid rgba(0,0,0,0.04)' }}>
                       <Icon size={12} />
                     </div>
                     <div style={styles.dashStatInfo}>
@@ -816,7 +816,7 @@ function DashboardPreview() {
 
             {/* Template Badge */}
             <div style={styles.dashTemplateInfo}>
-              <div style={{ ...styles.dashTemplateBadge, background: '#5B9FFF' }}>
+              <div style={{ ...styles.dashTemplateBadge, background: 'linear-gradient(135deg, #4C8DFF, #8B6FE8)' }}>
                 Manifestasi
               </div>
               <div style={styles.dashTemplateDetails}>
@@ -1145,13 +1145,13 @@ const styles: Record<string, React.CSSProperties> = {
     overflow: 'hidden',
   },
 
-  /* Dashboard Frame */
+  /* Dashboard Frame - BRIGHT */
   dashFrame: {
     borderRadius: 16,
     overflow: 'hidden',
-    border: '1px solid var(--border-primary)',
-    boxShadow: '0 20px 80px rgba(0,0,0,0.12), 0 0 0 1px rgba(255,255,255,0.05)',
-    background: 'var(--surface-primary)',
+    border: '1px solid #E2E8F0',
+    boxShadow: '0 20px 80px rgba(76,141,255,0.10), 0 4px 24px rgba(0,0,0,0.06), 0 0 0 1px rgba(255,255,255,0.8)',
+    background: '#FFFFFF',
     position: 'relative',
   },
   dashChrome: {
@@ -1159,8 +1159,8 @@ const styles: Record<string, React.CSSProperties> = {
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: '10px 16px',
-    background: 'var(--surface-secondary)',
-    borderBottom: '1px solid var(--border-primary)',
+    background: '#F8FAFC',
+    borderBottom: '1px solid #E2E8F0',
   },
   dashDots: {
     display: 'flex',
@@ -1177,12 +1177,12 @@ const styles: Record<string, React.CSSProperties> = {
     alignItems: 'center',
     gap: 6,
     padding: '4px 14px',
-    background: 'var(--surface-primary)',
+    background: '#FFFFFF',
     borderRadius: 6,
     fontSize: 11,
     fontWeight: 500,
-    color: 'var(--text-tertiary)',
-    border: '1px solid var(--border-primary)',
+    color: '#94A3B8',
+    border: '1px solid #E2E8F0',
   },
   dashContent: {
     display: 'flex',
@@ -1190,11 +1190,11 @@ const styles: Record<string, React.CSSProperties> = {
   },
   dashSidebar: {
     width: 170,
-    borderRight: '1px solid var(--border-primary)',
+    borderRight: '1px solid #E2E8F0',
     padding: '12px 8px',
     display: 'flex',
     flexDirection: 'column',
-    background: 'var(--surface-secondary)',
+    background: '#F8FAFC',
     flexShrink: 0,
   },
   dashSidebarBrand: {
@@ -1208,7 +1208,7 @@ const styles: Record<string, React.CSSProperties> = {
     width: 24,
     height: 24,
     borderRadius: 6,
-    background: 'linear-gradient(135deg, var(--fluent-blue), var(--fluent-purple))',
+    background: 'linear-gradient(135deg, #4C8DFF, #8B6FE8)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -1220,7 +1220,7 @@ const styles: Record<string, React.CSSProperties> = {
   dashSidebarName: {
     fontSize: 13,
     fontWeight: 800,
-    color: 'var(--text-primary)',
+    color: '#1E293B',
     letterSpacing: '-0.3px',
   },
   dashSidebarNav: {
@@ -1240,7 +1240,7 @@ const styles: Record<string, React.CSSProperties> = {
     transition: 'all 0.15s',
   },
   dashSidebarFooter: {
-    borderTop: '1px solid var(--border-primary)',
+    borderTop: '1px solid #E2E8F0',
     paddingTop: 8,
     marginTop: 8,
   },
@@ -1250,6 +1250,7 @@ const styles: Record<string, React.CSSProperties> = {
     flex: 1,
     padding: 14,
     overflow: 'hidden',
+    background: '#FFFFFF',
   },
   dashTopbar: {
     display: 'flex',
@@ -1265,11 +1266,11 @@ const styles: Record<string, React.CSSProperties> = {
   dashTopbarTitle: {
     fontSize: 14,
     fontWeight: 700,
-    color: 'var(--text-primary)',
+    color: '#1E293B',
   },
   dashTopbarSub: {
     fontSize: 10,
-    color: 'var(--text-secondary)',
+    color: '#64748B',
   },
   dashTopbarRight: {
     display: 'flex',
@@ -1282,8 +1283,8 @@ const styles: Record<string, React.CSSProperties> = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    background: 'var(--surface-tertiary)',
-    color: 'var(--text-secondary)',
+    background: '#F1F5F9',
+    color: '#64748B',
   },
 
   /* Dashboard Stats */
@@ -1294,8 +1295,8 @@ const styles: Record<string, React.CSSProperties> = {
     marginBottom: 14,
   },
   dashStatCard: {
-    background: 'var(--surface-secondary)',
-    border: '1px solid var(--border-primary)',
+    background: '#F8FAFC',
+    border: '1px solid #E2E8F0',
     borderRadius: 8,
     padding: '10px 12px',
     display: 'flex',
@@ -1317,12 +1318,12 @@ const styles: Record<string, React.CSSProperties> = {
   dashStatValue: {
     fontSize: 15,
     fontWeight: 700,
-    color: 'var(--text-primary)',
+    color: '#1E293B',
     lineHeight: 1.2,
   },
   dashStatLabel: {
     fontSize: 9,
-    color: 'var(--text-secondary)',
+    color: '#64748B',
     fontWeight: 500,
     marginTop: 1,
   },
@@ -1340,11 +1341,11 @@ const styles: Record<string, React.CSSProperties> = {
   dashPhaseTitle: {
     fontSize: 12,
     fontWeight: 700,
-    color: 'var(--text-primary)',
+    color: '#1E293B',
   },
   dashPhaseSub: {
     fontSize: 9,
-    color: 'var(--text-tertiary)',
+    color: '#94A3B8',
   },
   dashPhaseGrid: {
     display: 'grid',
@@ -1352,8 +1353,8 @@ const styles: Record<string, React.CSSProperties> = {
     gap: 8,
   },
   dashPhaseCard: {
-    background: 'var(--surface-secondary)',
-    border: '1px solid var(--border-primary)',
+    background: '#F8FAFC',
+    border: '1px solid #E2E8F0',
     borderLeft: '3px solid',
     borderRadius: 8,
     padding: '10px 12px',
@@ -1367,7 +1368,7 @@ const styles: Record<string, React.CSSProperties> = {
   dashPhaseName: {
     fontSize: 11,
     fontWeight: 600,
-    color: 'var(--text-primary)',
+    color: '#334155',
   },
   dashPhaseCount: {
     fontSize: 18,
@@ -1377,8 +1378,8 @@ const styles: Record<string, React.CSSProperties> = {
 
   /* Dashboard Template Info */
   dashTemplateInfo: {
-    background: 'var(--surface-secondary)',
-    border: '1px solid var(--border-primary)',
+    background: '#F8FAFC',
+    border: '1px solid #E2E8F0',
     borderRadius: 8,
     padding: '10px 14px',
     display: 'flex',
@@ -1400,9 +1401,9 @@ const styles: Record<string, React.CSSProperties> = {
   },
   dashTemplateStat: {
     fontSize: 9,
-    color: 'var(--text-secondary)',
+    color: '#475569',
     padding: '3px 8px',
-    background: 'var(--surface-tertiary)',
+    background: '#F1F5F9',
     borderRadius: 4,
     fontWeight: 500,
   },
@@ -1410,8 +1411,8 @@ const styles: Record<string, React.CSSProperties> = {
   /* Floating AI */
   dashFloatingAI: {
     position: 'absolute',
-    bottom: 50,
-    right: 'calc(50% - 540px)',
+    bottom: 40,
+    right: 'calc(50% - 380px)',
     animation: 'float 4s ease-in-out infinite',
     zIndex: 10,
   },
@@ -1420,15 +1421,15 @@ const styles: Record<string, React.CSSProperties> = {
     alignItems: 'center',
     gap: 8,
     padding: '10px 16px',
-    background: 'var(--surface-primary)',
-    border: '1px solid var(--border-primary)',
+    background: '#FFFFFF',
+    border: '1px solid #E2E8F0',
     borderRadius: 12,
-    boxShadow: '0 8px 32px rgba(180,154,243,0.2)',
+    boxShadow: '0 8px 32px rgba(139,111,232,0.15)',
   },
   dashFloatingAIText: {
     fontSize: 12,
     fontWeight: 700,
-    color: 'var(--text-primary)',
+    color: '#1E293B',
   },
 
   /* Sections */
