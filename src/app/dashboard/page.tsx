@@ -335,15 +335,16 @@ export default function DashboardPage() {
 const styles: Record<string, React.CSSProperties> = {
   layout: {
     display: 'flex',
-    minHeight: '100vh',
+    minHeight: '100dvh',
     background: 'var(--surface-secondary)',
     fontFamily: "'DM Sans', -apple-system, sans-serif",
   },
   main: {
     flex: 1,
-    minHeight: '100vh',
+    minHeight: '100dvh',
     display: 'flex',
     flexDirection: 'column' as const,
+    overflowX: 'hidden',
   },
   topbar: {
     display: 'flex',
