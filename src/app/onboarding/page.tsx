@@ -22,7 +22,7 @@ export default function OnboardingPage() {
 const styles: Record<string, React.CSSProperties> = {
   page: {
     minHeight: '100vh',
-    background: 'linear-gradient(135deg, #f5f7ff 0%, #eef2ff 100%)',
+    background: 'linear-gradient(135deg, var(--surface-secondary) 0%, var(--mica-alt) 100%)',
     fontFamily: "'DM Sans', -apple-system, sans-serif",
   },
   logo: {
@@ -53,11 +53,11 @@ const styles: Record<string, React.CSSProperties> = {
   logoName: {
     fontSize: 18,
     fontWeight: 700,
-    color: '#1a1a2e',
+    color: 'var(--text-primary)',
   },
   logoVersion: {
     fontSize: 12,
-    color: '#999',
+    color: 'var(--text-tertiary)',
     fontWeight: 500,
   },
 };

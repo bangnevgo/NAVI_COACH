@@ -10,12 +10,13 @@ import {
   MessageCircle, Target, BookOpen, ChevronRight, Menu,
 } from 'lucide-react';
 import { Sidebar } from '@/components/sidebar';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 function TemplateDetailCard({ template, isActive }: { template: NicheTemplate; isActive: boolean }) {
   return (
     <div style={{
       ...styles.detailCard,
-      borderColor: isActive ? (template.phases[0]?.color || '#5B9FFF') : '#e8e8ef',
+      borderColor: isActive ? (template.phases[0]?.color || '#5B9FFF') : 'var(--border-primary)',
       borderLeft: isActive ? `4px solid ${template.phases[0]?.color || '#5B9FFF'}` : '4px solid transparent',
     }}>
       <div style={styles.detailTop}>
@@ -82,6 +83,7 @@ export default function PengaturanPage() {
               <p style={styles.topbarSub}>Kelola template dan preferensi coaching</p>
             </div>
           </div>
+          <ThemeToggle />
         </div>
     <div style={styles.page}>
 
@@ -118,8 +120,8 @@ export default function PengaturanPage() {
                     key={tmpl.id}
                     style={{
                       ...styles.templateCard,
-                      borderColor: tmpl.id === template.id ? (tmpl.phases[0]?.color || '#5B9FFF') : '#e8e8ef',
-                      background: tmpl.id === template.id ? 'rgba(91, 159, 255, 0.04)' : '#fff',
+                      borderColor: tmpl.id === template.id ? (tmpl.phases[0]?.color || '#5B9FFF') : 'var(--border-primary)',
+                      background: tmpl.id === template.id ? 'rgba(91, 159, 255, 0.04)' : 'var(--surface-primary)',
                     }}
                     onClick={() => {
                       setTemplateId(tmpl.id);
@@ -153,7 +155,7 @@ export default function PengaturanPage() {
                           <span style={styles.miniPhasePlus}>+{tmpl.phases.length - 4}</span>
                         )}
                       </div>
-                      <ChevronRight size={16} color="#999" />
+                      <ChevronRight size={16} color="var(--text-tertiary)" />
                     </div>
                   </button>
                 ))}
@@ -235,7 +237,7 @@ const styles: Record<string, React.CSSProperties> = {
   layout: {
     display: 'flex',
     minHeight: '100vh',
-    background: '#f5f6fa',
+    background: 'var(--surface-secondary)',
     fontFamily: "'DM Sans', -apple-system, sans-serif",
   },
   mainArea: {
@@ -249,8 +251,8 @@ const styles: Record<string, React.CSSProperties> = {
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: '16px 24px',
-    background: '#fff',
-    borderBottom: '1px solid #e8e8ef',
+    background: 'var(--surface-primary)',
+    borderBottom: '1px solid var(--border-primary)',
   },
   topbarLeft: {
     display: 'flex',
@@ -260,19 +262,19 @@ const styles: Record<string, React.CSSProperties> = {
   topbarTitle: {
     fontSize: 22,
     fontWeight: 700,
-    color: '#1a1a2e',
+    color: 'var(--text-primary)',
     margin: 0,
   },
   topbarSub: {
     fontSize: 13,
-    color: '#666',
+    color: 'var(--text-secondary)',
     margin: '2px 0 0 0',
   },
   menuBtn: {
     background: 'none',
     border: 'none',
     cursor: 'pointer',
-    color: '#333',
+    color: 'var(--text-primary)',
     padding: '8px',
     borderRadius: 8,
     display: 'flex',
@@ -285,7 +287,7 @@ const styles: Record<string, React.CSSProperties> = {
     padding: '24px',
     fontFamily: "'DM Sans', -apple-system, sans-serif",
     minHeight: '100vh',
-    background: '#f5f6fa',
+    background: 'var(--surface-secondary)',
   },
   header: {
     display: 'flex',
@@ -297,24 +299,24 @@ const styles: Record<string, React.CSSProperties> = {
     width: 40,
     height: 40,
     borderRadius: 10,
-    background: '#fff',
-    border: '1px solid #e8e8ef',
+    background: 'var(--surface-primary)',
+    border: '1px solid var(--border-primary)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     textDecoration: 'none',
-    color: '#333',
+    color: 'var(--text-primary)',
     cursor: 'pointer',
   },
   title: {
     fontSize: 28,
     fontWeight: 700,
-    color: '#1a1a2e',
+    color: 'var(--text-primary)',
     margin: 0,
   },
   subtitle: {
     fontSize: 14,
-    color: '#666',
+    color: 'var(--text-secondary)',
     margin: '2px 0 0 0',
   },
   sections: {
@@ -323,8 +325,8 @@ const styles: Record<string, React.CSSProperties> = {
     gap: 20,
   },
   section: {
-    background: '#fff',
-    border: '1px solid #e8e8ef',
+    background: 'var(--surface-primary)',
+    border: '1px solid var(--border-primary)',
     borderRadius: 16,
     padding: 24,
   },
@@ -337,7 +339,7 @@ const styles: Record<string, React.CSSProperties> = {
   sectionTitle: {
     fontSize: 16,
     fontWeight: 700,
-    color: '#1a1a2e',
+    color: 'var(--text-primary)',
     display: 'flex',
     alignItems: 'center',
     gap: 8,
@@ -356,11 +358,11 @@ const styles: Record<string, React.CSSProperties> = {
     display: 'flex',
     gap: 10,
     padding: '12px 16px',
-    background: 'rgba(255, 180, 0, 0.08)',
-    border: '1px solid rgba(255, 180, 0, 0.25)',
+    background: 'var(--warning-bg)',
+    border: '1px solid var(--warning-border)',
     borderRadius: 10,
     fontSize: 13,
-    color: '#8a6d00',
+    color: 'var(--warning-text)',
     marginBottom: 20,
     lineHeight: 1.5,
   },
@@ -400,16 +402,16 @@ const styles: Record<string, React.CSSProperties> = {
   templateCardName: {
     fontSize: 15,
     fontWeight: 600,
-    color: '#1a1a2e',
+    color: 'var(--text-primary)',
   },
   templateCardCounts: {
     fontSize: 12,
-    color: '#999',
+    color: 'var(--text-tertiary)',
     marginTop: 2,
   },
   templateCardDesc: {
     fontSize: 13,
-    color: '#666',
+    color: 'var(--text-secondary)',
     margin: '0 0 12px 0',
     lineHeight: 1.4,
   },
@@ -418,7 +420,7 @@ const styles: Record<string, React.CSSProperties> = {
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingTop: 12,
-    borderTop: '1px solid #f0f0f5',
+    borderTop: '1px solid var(--border-subtle)',
   },
   templatePhases: {
     display: 'flex',
@@ -432,7 +434,7 @@ const styles: Record<string, React.CSSProperties> = {
   },
   miniPhasePlus: {
     fontSize: 11,
-    color: '#999',
+    color: 'var(--text-tertiary)',
     fontWeight: 500,
   },
   detailCard: {
@@ -449,7 +451,7 @@ const styles: Record<string, React.CSSProperties> = {
   detailName: {
     fontSize: 18,
     fontWeight: 700,
-    color: '#1a1a2e',
+    color: 'var(--text-primary)',
     margin: 0,
   },
   activeBadge: {
@@ -464,7 +466,7 @@ const styles: Record<string, React.CSSProperties> = {
   },
   detailDesc: {
     fontSize: 14,
-    color: '#666',
+    color: 'var(--text-secondary)',
     margin: '0 0 16px 0',
     lineHeight: 1.5,
   },
@@ -479,10 +481,10 @@ const styles: Record<string, React.CSSProperties> = {
     alignItems: 'center',
     gap: 4,
     padding: '4px 10px',
-    background: '#f5f6fa',
+    background: 'var(--surface-tertiary)',
     borderRadius: 6,
     fontSize: 12,
-    color: '#666',
+    color: 'var(--text-secondary)',
   },
   phaseRow: {
     display: 'flex',
@@ -506,18 +508,18 @@ const styles: Record<string, React.CSSProperties> = {
     display: 'flex',
     flexDirection: 'column' as const,
     padding: '8px 12px',
-    background: '#f8f9fc',
+    background: 'var(--surface-tertiary)',
     borderRadius: 8,
     gap: 2,
   },
   aiToolName: {
     fontSize: 13,
     fontWeight: 600,
-    color: '#333',
+    color: 'var(--text-primary)',
   },
   aiToolDesc: {
     fontSize: 12,
-    color: '#999',
+    color: 'var(--text-tertiary)',
   },
   tablesGrid: {
     display: 'grid',
@@ -525,36 +527,36 @@ const styles: Record<string, React.CSSProperties> = {
     gap: 12,
   },
   tableCard: {
-    border: '1px solid #e8e8ef',
+    border: '1px solid var(--border-primary)',
     borderRadius: 10,
     padding: 16,
   },
   tableTitle: {
     fontSize: 13,
     fontWeight: 700,
-    color: '#333',
+    color: 'var(--text-primary)',
     margin: '0 0 12px 0',
     paddingBottom: 8,
-    borderBottom: '1px solid #e8e8ef',
+    borderBottom: '1px solid var(--border-primary)',
   },
   tableRow: {
     display: 'flex',
     justifyContent: 'space-between',
     padding: '6px 0',
-    borderBottom: '1px solid #f5f5f8',
+    borderBottom: '1px solid var(--border-very-subtle)',
   },
   tableKey: {
     fontSize: 12,
-    color: '#666',
+    color: 'var(--text-secondary)',
     textTransform: 'capitalize' as const,
   },
   tableVal: {
     fontSize: 12,
     fontWeight: 600,
-    color: '#333',
+    color: 'var(--text-primary)',
   },
   aboutCard: {
-    border: '1px solid #e8e8ef',
+    border: '1px solid var(--border-primary)',
     borderRadius: 10,
     padding: 16,
   },
@@ -562,15 +564,15 @@ const styles: Record<string, React.CSSProperties> = {
     display: 'flex',
     justifyContent: 'space-between',
     padding: '8px 0',
-    borderBottom: '1px solid #f5f5f8',
+    borderBottom: '1px solid var(--border-very-subtle)',
   },
   aboutLabel: {
     fontSize: 13,
-    color: '#666',
+    color: 'var(--text-secondary)',
   },
   aboutVal: {
     fontSize: 13,
     fontWeight: 600,
-    color: '#333',
+    color: 'var(--text-primary)',
   },
 };

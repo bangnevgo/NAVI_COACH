@@ -5,11 +5,12 @@ import { useTemplate } from '@/components/template-provider';
 import { type NicheTemplate } from '@/templates/types';
 import {
   Users, UserCheck, CheckCircle, Archive,
-  TrendingUp, Target, BarChart3, Plus, Menu,
+  TrendingUp, Target, BarChart3, Plus, Menu, Moon, Sun,
 } from 'lucide-react';
 import type { LucideProps } from 'lucide-react';
 import { BRAND } from '@/lib/branding';
 import { Sidebar } from '@/components/sidebar';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 interface StatCardProps {
   label: string;
@@ -21,7 +22,7 @@ interface StatCardProps {
 
 function StatCard({ label, value, icon, color, bgColor }: StatCardProps) {
   return (
-    <div style={{ ...styles.statCard, background: '#fff', borderColor: '#e8e8ef' }}>
+    <div style={{ ...styles.statCard, background: 'var(--surface-primary)', borderColor: 'var(--border-primary)' }}>
       <div style={{ ...styles.statIcon, background: bgColor }}>
         {React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement<LucideProps>, { size: 20, color }) : icon}
       </div>
@@ -41,7 +42,7 @@ interface PhaseCardProps {
 
 function PhaseCard({ phase, count, template }: PhaseCardProps) {
   return (
-    <div style={{ ...styles.phaseCard, borderLeft: `4px solid ${phase.color}` }}>
+    <div style={{ ...styles.phaseCard, borderLeft: `4px solid ${phase.color}`, background: 'var(--surface-primary)', borderColor: 'var(--border-primary)' }}>
       <div style={styles.phaseInfo}>
         <div style={styles.phaseName}>{phase.name}</div>
         <div style={styles.phaseDesc}>{phase.description}</div>
@@ -101,6 +102,7 @@ export default function DashboardPage() {
               <p style={styles.topbarSub}>Ringkasan {t.clientPlural.toLowerCase()} dan coaching</p>
             </div>
           </div>
+          <ThemeToggle />
         </div>
     <div style={styles.container}>
       {typeof window !== 'undefined' && !localStorage.getItem('coachflo_active_template') && (
@@ -203,7 +205,7 @@ const styles: Record<string, React.CSSProperties> = {
   layout: {
     display: 'flex',
     minHeight: '100vh',
-    background: '#f5f6fa',
+    background: 'var(--surface-secondary)',
     fontFamily: "'DM Sans', -apple-system, sans-serif",
   },
   main: {
@@ -217,8 +219,8 @@ const styles: Record<string, React.CSSProperties> = {
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: '16px 24px',
-    background: '#fff',
-    borderBottom: '1px solid #e8e8ef',
+    background: 'var(--surface-primary)',
+    borderBottom: '1px solid var(--border-primary)',
   },
   topbarLeft: {
     display: 'flex',
@@ -228,19 +230,19 @@ const styles: Record<string, React.CSSProperties> = {
   topbarTitle: {
     fontSize: 22,
     fontWeight: 700,
-    color: '#1a1a2e',
+    color: 'var(--text-primary)',
     margin: 0,
   },
   topbarSub: {
     fontSize: 13,
-    color: '#666',
+    color: 'var(--text-secondary)',
     margin: '2px 0 0 0',
   },
   menuBtn: {
     background: 'none',
     border: 'none',
     cursor: 'pointer',
-    color: '#333',
+    color: 'var(--text-primary)',
     padding: '8px',
     borderRadius: 8,
     display: 'flex',
@@ -269,12 +271,12 @@ const styles: Record<string, React.CSSProperties> = {
   welcomeTitle: {
     fontSize: 18,
     fontWeight: 700,
-    color: '#1a1a2e',
+    color: 'var(--text-primary)',
     margin: 0,
   },
   welcomeDesc: {
     fontSize: 14,
-    color: '#666',
+    color: 'var(--text-secondary)',
     margin: '4px 0 0 0',
   },
   welcomeBtn: {
@@ -282,8 +284,8 @@ const styles: Record<string, React.CSSProperties> = {
     alignItems: 'center',
     gap: 6,
     padding: '8px 16px',
-    background: '#fff',
-    border: '1px solid #e8e8ef',
+    background: 'var(--surface-primary)',
+    border: '1px solid var(--border-primary)',
     borderRadius: 8,
     color: '#5B9FFF',
     fontSize: 13,
@@ -322,20 +324,20 @@ const styles: Record<string, React.CSSProperties> = {
   statValue: {
     fontSize: 24,
     fontWeight: 700,
-    color: '#1a1a2e',
+    color: 'var(--text-primary)',
     lineHeight: 1.2,
   },
   statLabel: {
     fontSize: 13,
-    color: '#666',
+    color: 'var(--text-secondary)',
     marginTop: 2,
   },
   error: {
     padding: '12px 16px',
-    background: '#fef2f2',
-    border: '1px solid #fcc',
+    background: 'rgba(248, 113, 113, 0.1)',
+    border: '1px solid rgba(248, 113, 113, 0.3)',
     borderRadius: 8,
-    color: '#c00',
+    color: '#ef4444',
     fontSize: 13,
     marginBottom: 24,
   },
@@ -351,12 +353,12 @@ const styles: Record<string, React.CSSProperties> = {
   sectionTitle: {
     fontSize: 18,
     fontWeight: 700,
-    color: '#1a1a2e',
+    color: 'var(--text-primary)',
     margin: 0,
   },
   sectionSub: {
     fontSize: 13,
-    color: '#999',
+    color: 'var(--text-tertiary)',
   },
   phaseGrid: {
     display: 'grid',
@@ -364,8 +366,7 @@ const styles: Record<string, React.CSSProperties> = {
     gap: 12,
   },
   phaseCard: {
-    background: '#fff',
-    border: '1px solid #e8e8ef',
+    border: '1px solid',
     borderLeft: '4px solid',
     borderRadius: 12,
     padding: 16,
@@ -380,11 +381,11 @@ const styles: Record<string, React.CSSProperties> = {
   phaseName: {
     fontSize: 15,
     fontWeight: 600,
-    color: '#1a1a2e',
+    color: 'var(--text-primary)',
   },
   phaseDesc: {
     fontSize: 12,
-    color: '#666',
+    color: 'var(--text-secondary)',
     marginTop: 2,
   },
   phaseCount: {
@@ -394,8 +395,8 @@ const styles: Record<string, React.CSSProperties> = {
     marginLeft: 12,
   },
   templateInfo: {
-    background: '#fff',
-    border: '1px solid #e8e8ef',
+    background: 'var(--surface-primary)',
+    border: '1px solid var(--border-primary)',
     borderRadius: 12,
     padding: 20,
   },
@@ -419,9 +420,9 @@ const styles: Record<string, React.CSSProperties> = {
   },
   templateStat: {
     fontSize: 13,
-    color: '#666',
+    color: 'var(--text-secondary)',
     padding: '4px 10px',
-    background: '#f5f6fa',
+    background: 'var(--surface-tertiary)',
     borderRadius: 6,
   },
 };

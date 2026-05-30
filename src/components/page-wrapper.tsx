@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Sidebar } from './sidebar';
 import { useStateManager } from '@/hooks/use-local-storage';
 import { BRAND } from '@/lib/branding';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 interface PageWrapperProps {
   children: React.ReactNode;
@@ -33,6 +34,9 @@ export function PageWrapper({ children, title }: PageWrapperProps) {
               ☰
             </button>
             <h1 style={styles.title}>{title}</h1>
+            <div style={styles.headerRight}>
+              <ThemeToggle />
+            </div>
           </div>
         )}
         <div style={styles.content}>{children}</div>
@@ -45,7 +49,7 @@ const styles: Record<string, React.CSSProperties> = {
   layout: {
     display: 'flex',
     minHeight: '100vh',
-    background: '#f5f6fa',
+    background: 'var(--surface-secondary)',
     fontFamily: "'DM Sans', -apple-system, sans-serif",
   },
   main: {
@@ -60,23 +64,28 @@ const styles: Record<string, React.CSSProperties> = {
     alignItems: 'center',
     gap: 16,
     padding: '16px 24px',
-    background: '#fff',
-    borderBottom: '1px solid #e8e8ef',
+    background: 'var(--surface-primary)',
+    borderBottom: '1px solid var(--border-primary)',
   },
   menuBtn: {
     background: 'none',
     border: 'none',
     fontSize: 24,
     cursor: 'pointer',
-    color: '#333',
+    color: 'var(--text-primary)',
     padding: '4px 8px',
     borderRadius: 8,
   },
   title: {
     fontSize: 20,
     fontWeight: 700,
-    color: '#1a1a2e',
+    color: 'var(--text-primary)',
     margin: 0,
+    flex: 1,
+  },
+  headerRight: {
+    display: 'flex',
+    alignItems: 'center',
   },
   content: {
     flex: 1,

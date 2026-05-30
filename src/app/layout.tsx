@@ -3,6 +3,7 @@ import { DM_Sans } from 'next/font/google';
 import './globals.css';
 import { BRAND } from '@/lib/branding';
 import { TemplateProvider } from '@/components/template-provider';
+import { ThemeProvider } from '@/components/theme-provider';
 
 const dmSans = DM_Sans({
   subsets: ['latin'],
@@ -23,9 +24,11 @@ export default function RootLayout({
   return (
     <html lang="id" suppressHydrationWarning>
       <body className={`${dmSans.variable} antialiased`} style={{ margin: 0, fontFamily: "'DM Sans', var(--font-dm-sans), -apple-system, sans-serif" }}>
-        <TemplateProvider>
-          {children}
-        </TemplateProvider>
+        <ThemeProvider>
+          <TemplateProvider>
+            {children}
+          </TemplateProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

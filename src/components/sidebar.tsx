@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { useTemplate } from '@/components/template-provider';
 import { BRAND } from '@/lib/branding';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -117,6 +118,10 @@ export function Sidebar({ isOpen, onClose, onOpenAITools }: SidebarProps) {
             </div>
           ))}
         </nav>
+
+        <div className="nevgo-sidebar-footer">
+          <ThemeToggle />
+        </div>
       </aside>
     </>
   );

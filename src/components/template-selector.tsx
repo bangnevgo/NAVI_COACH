@@ -62,7 +62,7 @@ export function TemplateSelector({ selectedId, onSelect }: TemplateSelectorProps
             <p style={styles.cardDesc}>{t.description}</p>
             <div style={styles.cardFooter}>
               <span style={styles.phasesCount}>{t.phases.length} fase</span>
-              <ChevronRight size={16} color="#666" />
+              <ChevronRight size={16} color="var(--text-tertiary)" />
             </div>
           </button>
         ))}
@@ -85,12 +85,12 @@ const styles: Record<string, React.CSSProperties> = {
   title: {
     fontSize: 28,
     fontWeight: 700,
-    color: '#1a1a2e',
+    color: 'var(--text-primary)',
     marginBottom: 12,
   },
   subtitle: {
     fontSize: 15,
-    color: '#666',
+    color: 'var(--text-secondary)',
     maxWidth: 540,
     margin: '0 auto',
     lineHeight: 1.5,
@@ -101,8 +101,8 @@ const styles: Record<string, React.CSSProperties> = {
     gap: 16,
   },
   card: {
-    background: '#fff',
-    border: '2px solid #e8e8ef',
+    background: 'var(--surface-primary)',
+    border: '2px solid var(--border-primary)',
     borderRadius: 16,
     padding: 24,
     cursor: 'pointer',
@@ -143,12 +143,12 @@ const styles: Record<string, React.CSSProperties> = {
   cardTitle: {
     fontSize: 16,
     fontWeight: 600,
-    color: '#1a1a2e',
+    color: 'var(--text-primary)',
     margin: 0,
   },
   cardDesc: {
     fontSize: 13,
-    color: '#666',
+    color: 'var(--text-secondary)',
     lineHeight: 1.4,
     margin: 0,
     flex: 1,
@@ -159,11 +159,11 @@ const styles: Record<string, React.CSSProperties> = {
     alignItems: 'center',
     marginTop: 8,
     paddingTop: 12,
-    borderTop: '1px solid #e8e8ef',
+    borderTop: '1px solid var(--border-subtle)',
   },
   phasesCount: {
     fontSize: 12,
-    color: '#999',
+    color: 'var(--text-tertiary)',
     fontWeight: 500,
   },
 };
