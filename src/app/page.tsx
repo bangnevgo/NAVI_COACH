@@ -253,7 +253,7 @@ export default function LandingPage() {
           </div>
           <div style={styles.navActions}>
             <ThemeToggle />
-            <Link href="/dashboard" style={styles.demoBtn}>
+            <Link href="/dashboard" style={styles.demoBtn} >
               <PlayCircle size={16} />
               Coba Demo
             </Link>
@@ -274,7 +274,7 @@ export default function LandingPage() {
             <a href="#benefit" style={styles.mobileLink} onClick={() => setMobileMenu(false)}>Benefit</a>
             <a href="#keunggulan" style={styles.mobileLink} onClick={() => setMobileMenu(false)}>Keunggulan</a>
             <a href="#testimoni" style={styles.mobileLink} onClick={() => setMobileMenu(false)}>Testimoni</a>
-            <Link href="/dashboard" style={{ ...styles.demoBtn, width: '100%', justifyContent: 'center', marginTop: 8 }} onClick={() => setMobileMenu(false)}>
+            <Link href="/dashboard" style={{ ...styles.demoBtn, width: '100%', justifyContent: 'center', marginTop: 8 }} onClick={() => { setMobileMenu(false); }}>
               <PlayCircle size={16} />
               Coba Demo Sekarang
             </Link>
@@ -301,7 +301,7 @@ export default function LandingPage() {
             {BRAND.fullName} menggabungkan manajemen klien, AI assistant, dan analytics dalam satu platform yang dirancang khusus untuk coach profesional. Hemat waktu, tingkatkan hasil.
           </p>
           <div style={styles.heroButtons}>
-            <Link href="/dashboard" style={styles.heroPrimaryBtn}>
+            <Link href="/dashboard" style={styles.heroPrimaryBtn} >
               <PlayCircle size={18} />
               Coba Demo Gratis
               <ChevronRight size={16} style={{ marginLeft: 4 }} />
@@ -435,7 +435,7 @@ export default function LandingPage() {
                 <span>Chat AI Kontekstual</span>
               </div>
             </div>
-            <Link href="/dashboard" style={styles.curiosityBtn}>
+            <Link href="/dashboard" style={styles.curiosityBtn} >
               <Rocket size={18} />
               Buka Demo Sekarang — Gratis!
               <ChevronRight size={16} />
@@ -471,7 +471,7 @@ export default function LandingPage() {
             <h2 style={styles.finalCtaTitle}>Siap Mengubah Cara Anda Coaching?</h2>
             <p style={styles.finalCtaText}>Bergabung dengan ratusan coach yang sudah meningkatkan produktivitas mereka dengan COACHFLO. Mulai sekarang, gratis.</p>
             <div style={styles.finalCtaButtons}>
-              <Link href="/dashboard" style={styles.finalCtaPrimaryBtn}>
+              <Link href="/dashboard" style={styles.finalCtaPrimaryBtn} >
                 <PlayCircle size={18} />
                 Mulai Demo Gratis
                 <ChevronRight size={16} />
@@ -838,7 +838,7 @@ function DashboardPreview() {
 
       {/* CTA Below Preview */}
       <div style={{ textAlign: 'center', marginTop: 32 }}>
-        <Link href="/dashboard" style={{
+        <Link href="/dashboard"  style={{
           display: 'inline-flex',
           alignItems: 'center',
           gap: 8,

@@ -48,7 +48,13 @@ export default function KlienPage() {
   const [waInput, setWaInput] = useState('');
 
   useEffect(() => {
-    fetch('/api/clients').then((r) => r.json()).then(setClients).catch(console.error);
+    // Use demo data in demo mode
+    const { DEMO_CLIENTS, isDemoMode } = require('@/lib/demo-data');
+    if (isDemoMode()) {
+      setClients(DEMO_CLIENTS);
+    } else {
+      fetch('/api/clients').then((r) => r.json()).then(setClients).catch(console.error);
+    }
   }, []);
 
   const filtered = clients.filter((c) => {

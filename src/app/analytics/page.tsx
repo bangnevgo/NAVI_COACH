@@ -28,10 +28,15 @@ export default function AnalyticsPage() {
   const [aiToolsOpen, setAiToolsOpen] = useState(false);
 
   useEffect(() => {
-    fetch('/api/analytics')
-      .then((r) => r.json())
-      .then(setData)
-      .catch(console.error);
+    const { getDemoStats, getDemoPhaseDistribution, isDemoMode } = require('@/lib/demo-data');
+    if (isDemoMode()) {
+      setData({ stats: getDemoStats(), phaseDist: getDemoPhaseDistribution() });
+    } else {
+      fetch('/api/analytics')
+        .then((r) => r.json())
+        .then(setData)
+        .catch(console.error);
+    }
   }, []);
 
   const stats = data?.stats || { total: 0, active: 0, onProgress: 0, completed: 0, inactive: 0, totalSessions: 0, avgProgress: 0 };

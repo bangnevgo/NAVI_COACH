@@ -38,10 +38,15 @@ export function AIAssistantPanel({ isOpen, onClose }: AIAssistantPanelProps) {
 
   useEffect(() => {
     if (isOpen) {
-      fetch('/api/clients?status=active')
-        .then((r) => r.json())
-        .then((data) => setClients(Array.isArray(data) ? data : []))
-        .catch(console.error);
+      const { DEMO_CLIENTS, isDemoMode } = require('@/lib/demo-data');
+      if (isDemoMode()) {
+        setClients(DEMO_CLIENTS.filter((c: any) => c.status === 'active' || c.status === 'on_progress'));
+      } else {
+        fetch('/api/clients?status=active')
+          .then((r) => r.json())
+          .then((data) => setClients(Array.isArray(data) ? data : []))
+          .catch(console.error);
+      }
     }
   }, [isOpen]);
 
@@ -79,45 +84,72 @@ export function AIAssistantPanel({ isOpen, onClose }: AIAssistantPanelProps) {
     setIsLoading(true);
 
     try {
-      const res = await fetch(`/api/clients/${selectedClient.id}/analyze`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          tool: toolId,
-          context: userQuery || undefined,
-          provider: 'openrouter',
-        }),
-      });
+      // Check for demo mode
+      const { isDemoMode } = require('@/lib/demo-data');
+      if (isDemoMode()) {
+        // Simulate AI response in demo mode
+        await new Promise((r) => setTimeout(r, 1500));
+        const demoResponses: Record<string, string> = {
+          intake: `## Analisis Intake Klien\n\nBerdasarkan data ${selectedClient.name}, berikut adalah analisis awal:\n\n**1. Profil Klien**\n${selectedClient.name} menunjukkan antusiasme yang tinggi dan komitmen untuk berubah. Goal yang ditetapkan (${selectedClient.goal}) cukup spesifik dan terukur.\n\n**2. Limiting Beliefs Teridentifikasi**\n- "Saya belum siap untuk perubahan besar"\n- "Saya tidak punya cukup sumber daya"\n- "Bagaimana jika saya gagal lagi?"\n\n**3. Rekomendasi Fase Coaching**\n- **Minggu 1-2**: Intake & assessment mendalam\n- **Minggu 3-4**: Membangun self-concept baru\n- **Minggu 5-8**: Teknik SATS dan visualisasi\n- **Minggu 9+**: Living in the End & monitoring\n\n**4. Langkah Aksi Pertama**\n1. Tulis 10 affirmasi personal setiap pagi\n2. Praktikkan gratitude journal sebelum tidur\n3. Visualisasi 5 menit setelah bangun tidur\n\n> "Perjalanan seribu mil dimulai dari satu langkah pertama." — Lao Tzu`,
+          'self-concept': `## Pembentukan Self-Concept\n\nUntuk ${selectedClient.name}, berikut adalah proses pembentukan self-concept baru:\n\n**Limiting Beliefs → Empowering Beliefs:**\n\n| Limiting Belief | Empowering Belief |\n|---|---|\n| Saya tidak cukup baik | Saya layak mendapat yang terbaik |\n| Saya selalu gagal | Setiap kegagalan adalah pelajaran |\n| Orang lain lebih berhasil | Perjalanan saya unik dan istimewa |\n\n**Affirmasi Harian:**\n1. Saya layak menerima semua kebaikan\n2. Saya semakin kuat setiap hari\n3. Alam semesta mendukung impian saya\n4. Saya adalah magnet untuk kesuksesan\n5. Saya memilih percaya pada diri saya\n\n**Self-Talk Script:**\n"Setiap hari, dalam setiap cara, saya semakin menjadi versi terbaik dari diri saya. Saya memilih pikiran yang memberdayakan dan melepaskan yang membatasi."`,
+          sats: `## Script SATS untuk ${selectedClient.name}\n\n**Durasi:** 5-7 menit\n**Waktu terbaik:** Sebelum tidur atau bangun tidur\n\n---\n\n*Bernafas dalam... Tarik napas 4 detik... Tahan 4 detik... Hembuskan 6 detik...*\n\nBayangkan Anda sudah hidup dalam kondisi dimana **${selectedClient.goal}** sudah tercapai.\n\nRasakan... Lihat... Dengar...\n\nApa yang Anda lihat pagi ini saat bangun tidur? Tempat tidur yang nyaman, cahaya pagi yang hangat... Anda tersenyum karena tahu bahwa impian Anda sudah menjadi kenyataan.\n\nApa yang Anda dengar? Suara orang-orang tercinta mengucapkan selamat... Suara alam yang damai...\n\nApa yang Anda rasakan di dada? Kebanggaan... Kedamaian... Keyakinan... Rasa syukur yang meluap-luap...\n\n*Biarkan perasaan ini memenuhi seluruh tubuh Anda...*\n\n---\n\n**Tips:** Lakukan ini setiap malam sebelum tidur. Rasakan SEOLAH-OLAH sudah terjadi, bukan "akan" terjadi.`,
+          progress: `## Laporan Progress: ${selectedClient.name}\n\n**Progress Saat Ini:** ${selectedClient.progress}%\n**Fase:** ${selectedClient.phase}\n**Total Sesi:** ${selectedClient.totalSessions}\n\n---\n\n**Pencapaian yang Perlu Dirayakan:**\n- Telah menyelesaikan ${selectedClient.totalSessions} sesi coaching\n- Progress mencapai ${selectedClient.progress}%\n- Konsistensi dalam menjalankan praktik harian\n\n**Gap Analysis:**\n- Perlu memperdalam praktik visualisasi\n- Belum sepenuhnya melepaskan beberapa limiting beliefs\n- Perlu lebih banyak "acting as if" dalam kehidupan sehari-hari\n\n**Target 30 Hari Ke Depan:**\n1. Tingkatkan praktik SATS dari 1x ke 2x sehari\n2. Selesaikan semua action items dari sesi terakhir\n3. Tulis surat dari "diri masa depan" kepada diri saat ini\n\n**Affirmasi Khusus Fase Ini:**\n"Saya sudah dalam perjalanan yang benar. Setiap langkah membawa saya lebih dekat ke tujuan. Saya menikmati prosesnya."`,
+          'living-end': `## Living in the End: ${selectedClient.name}\n\n**Skenario "Sudah Tercapai"**\n\n*Rutinitas Pagi Anda Setelah ${selectedClient.goal}:*\n\nJam 06:00 — Anda bangun dengan senyum. Bukan karena alarm, tapi karena kegembiraan menyambut hari baru. Tubuh Anda terasa ringan dan penuh energi.\n\nJam 06:15 — Anda membuka jurnal dan menulis: "Hari ini luar biasa. Saya bersyukur karena ${selectedClient.goal} sudah menjadi kenyataan."\n\nJam 06:30 — Sambil menikmati kopi pagi, Anda melihat ke sekeliling dan merasakan kedamaian yang dalam. Semua yang Anda manifestasikan ada di depan mata.\n\n---\n\n**5 "Act As If" Daily Practices:**\n1. Berjalan dengan postur percaya diri — seperti orang yang sudah sukses\n2. Berbicara dengan keyakinan — tanpa keraguan\n3. Mengambil keputusan dari tempat "sudah tercapai", bukan "masih berjuang"\n4. Merawat diri seperti orang yang layak mendapat yang terbaik\n5. Mensyukuri setiap hal kecil seolah itu bukti manifestasi\n\n**Letter from Future Self:**\n*"Dear ${selectedClient.name.split(' ')[0]}, kamu sudah sampai di sini. Aku tahu perjalanannya tidak selalu mudah, tapi kamu tidak pernah menyerah. Sekarang, semua yang kamu impikan ada di tanganmu. Nikmatilah. Kamu layak mendapat semua ini."*`,
+        };
+        const toolId = selectedTool?.id || 'intake';
+        const responseText = demoResponses[toolId] || demoResponses.intake;
 
-      const data = await res.json();
-
-      if (data.error) {
-        if (data.code === 'MISSING_API_KEY') {
-          const errorMsg: Message = {
-            id: (Date.now() + 1).toString(),
-            role: 'assistant',
-            content: `API key belum dikonfigurasi. Silakan atur OpenRouter API Key di halaman **Pengaturan** terlebih dahulu.\n\nAnda bisa mendapatkan API key gratis di [openrouter.ai](https://openrouter.ai)`,
-            timestamp: new Date(),
-          };
-          setMessages((prev) => [...prev, errorMsg]);
-        } else {
-          const errorMsg: Message = {
-            id: (Date.now() + 1).toString(),
-            role: 'assistant',
-            content: `Terjadi kesalahan: ${data.error}`,
-            timestamp: new Date(),
-          };
-          setMessages((prev) => [...prev, errorMsg]);
-        }
-      } else {
         const assistantMsg: Message = {
           id: (Date.now() + 1).toString(),
           role: 'assistant',
-          content: data.analysis || data.result || 'Tidak ada hasil.',
+          content: userQuery
+            ? `**Pertanyaan Anda:** "${userQuery}"\n\nBerdasarkan data ${selectedClient.name}, berikut analisis saya:\n\n${responseText}`
+            : responseText,
           timestamp: new Date(),
           tool: toolId,
         };
         setMessages((prev) => [...prev, assistantMsg]);
+      } else {
+        const res = await fetch(`/api/clients/${selectedClient.id}/analyze`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            tool: toolId,
+            context: userQuery || undefined,
+            provider: 'openrouter',
+          }),
+        });
+
+        const data = await res.json();
+
+        if (data.error) {
+          if (data.code === 'MISSING_API_KEY') {
+            const errorMsg: Message = {
+              id: (Date.now() + 1).toString(),
+              role: 'assistant',
+              content: `API key belum dikonfigurasi. Silakan atur OpenRouter API Key di halaman **Pengaturan** terlebih dahulu.\n\nAnda bisa mendapatkan API key gratis di [openrouter.ai](https://openrouter.ai)`,
+              timestamp: new Date(),
+            };
+            setMessages((prev) => [...prev, errorMsg]);
+          } else {
+            const errorMsg: Message = {
+              id: (Date.now() + 1).toString(),
+              role: 'assistant',
+              content: `Terjadi kesalahan: ${data.error}`,
+              timestamp: new Date(),
+            };
+            setMessages((prev) => [...prev, errorMsg]);
+          }
+        } else {
+          const assistantMsg: Message = {
+            id: (Date.now() + 1).toString(),
+            role: 'assistant',
+            content: data.analysis || data.result || 'Tidak ada hasil.',
+            timestamp: new Date(),
+            tool: toolId,
+          };
+          setMessages((prev) => [...prev, assistantMsg]);
+        }
       }
     } catch (err) {
       const errorMsg: Message = {
