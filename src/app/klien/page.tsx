@@ -5,6 +5,7 @@ import { useTemplate } from '@/components/template-provider';
 import { BRAND } from '@/lib/branding';
 import { Sidebar } from '@/components/sidebar';
 import { ThemeToggle } from '@/components/theme-toggle';
+import { AIAssistantPanel } from '@/components/ai-assistant-panel';
 import type { Client as ClientType } from '@/lib/types';
 
 function timeAgo(dateStr: string): string {
@@ -39,7 +40,7 @@ export default function KlienPage() {
   const [statusFilter, setStatusFilter] = useState('all');
   const [phaseFilter, setPhaseFilter] = useState('all');
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [aiModalOpen, setAiModalOpen] = useState(false);
+  const [aiToolsOpen, setAiToolsOpen] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
   const [nameInput, setNameInput] = useState('');
   const [goalInput, setGoalInput] = useState('');
@@ -91,7 +92,7 @@ export default function KlienPage() {
 
   return (
     <div style={styles.layout}>
-      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} onOpenAITools={() => setAiModalOpen(true)} />
+      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} onOpenAITools={() => setAiToolsOpen(true)} />
       <main style={styles.main}>
         <div style={styles.header}>
           <div>
@@ -218,6 +219,8 @@ export default function KlienPage() {
           </div>
         </div>
       )}
+
+      <AIAssistantPanel isOpen={aiToolsOpen} onClose={() => setAiToolsOpen(false)} />
     </div>
   );
 }

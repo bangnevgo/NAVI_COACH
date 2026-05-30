@@ -5,6 +5,7 @@ import { useTemplate, useSetTemplate } from '@/components/template-provider';
 import { getTemplateList, type NicheTemplate } from '@/templates';
 import { Sidebar } from '@/components/sidebar';
 import { ThemeToggle } from '@/components/theme-toggle';
+import { AIAssistantPanel } from '@/components/ai-assistant-panel';
 import { BookOpen, Check, ChevronRight, Palette, Zap, MessageCircle, Target } from 'lucide-react';
 
 export default function TemplatesPage() {
@@ -12,12 +13,13 @@ export default function TemplatesPage() {
   const setTemplateId = useSetTemplate();
   const t = template.terminology;
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [aiToolsOpen, setAiToolsOpen] = useState(false);
   const [selectedTemplate, setSelectedTemplate] = useState<NicheTemplate | null>(null);
   const allTemplates = getTemplateList();
 
   return (
     <div style={styles.layout}>
-      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} onOpenAITools={() => {}} />
+      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} onOpenAITools={() => setAiToolsOpen(true)} />
       <main style={styles.main}>
         <div style={styles.topbar}>
           <div style={styles.topbarLeft}>
@@ -154,6 +156,8 @@ export default function TemplatesPage() {
           )}
         </div>
       </main>
+
+      <AIAssistantPanel isOpen={aiToolsOpen} onClose={() => setAiToolsOpen(false)} />
     </div>
   );
 }

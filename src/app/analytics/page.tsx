@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useTemplate } from '@/components/template-provider';
 import { Sidebar } from '@/components/sidebar';
 import { ThemeToggle } from '@/components/theme-toggle';
+import { AIAssistantPanel } from '@/components/ai-assistant-panel';
 import { BarChart3, TrendingUp, Users, Target, Clock, Award } from 'lucide-react';
 
 interface AnalyticsData {
@@ -24,6 +25,7 @@ export default function AnalyticsPage() {
   const t = template.terminology;
   const [data, setData] = useState<AnalyticsData | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [aiToolsOpen, setAiToolsOpen] = useState(false);
 
   useEffect(() => {
     fetch('/api/analytics')
@@ -46,7 +48,7 @@ export default function AnalyticsPage() {
 
   return (
     <div style={styles.layout}>
-      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} onOpenAITools={() => {}} />
+      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} onOpenAITools={() => setAiToolsOpen(true)} />
       <main style={styles.main}>
         <div style={styles.topbar}>
           <div style={styles.topbarLeft}>
@@ -164,6 +166,8 @@ export default function AnalyticsPage() {
           </div>
         </div>
       </main>
+
+      <AIAssistantPanel isOpen={aiToolsOpen} onClose={() => setAiToolsOpen(false)} />
     </div>
   );
 }

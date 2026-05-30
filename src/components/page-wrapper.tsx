@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Sidebar } from './sidebar';
+import { AIAssistantPanel } from './ai-assistant-panel';
 import { useStateManager } from '@/hooks/use-local-storage';
 import { BRAND } from '@/lib/branding';
 import { ThemeToggle } from '@/components/theme-toggle';
@@ -41,6 +42,12 @@ export function PageWrapper({ children, title }: PageWrapperProps) {
         )}
         <div style={styles.content}>{children}</div>
       </main>
+
+      {/* AI Assistant Panel */}
+      <AIAssistantPanel
+        isOpen={aiToolsOpen}
+        onClose={() => setAiToolsOpen(false)}
+      />
     </div>
   );
 }

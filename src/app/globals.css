@@ -1345,3 +1345,43 @@ body::before {
               border-color var(--duration-normal) var(--ease),
               color var(--duration-fast) var(--ease);
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   AI Assistant Panel
+   ═══════════════════════════════════════════════════════════════ */
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Client item hover in AI panel */
+button:hover .nevgo-ai-client-name,
+[style*="clientItem"]:hover {
+  background: var(--nav-hover) !important;
+}
+
+/* Message bubble copy button visibility */
+[style*="messageBubble"]:hover [style*="copyBtn"] {
+  opacity: 1 !important;
+}
+
+/* Quick chip hover */
+[style*="quickChip"]:hover,
+[style*="bottomChip"]:hover {
+  background: var(--card-hover) !important;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-02);
+}
+
+/* Tool chip hover */
+[style*="toolChip"]:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* AI Panel responsive */
+@media (max-width: 768px) {
+  [style*="width: 460"] {
+    width: 100vw !important;
+  }
+}

@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { Sidebar } from '@/components/sidebar';
 import { ThemeToggle } from '@/components/theme-toggle';
+import { AIAssistantPanel } from '@/components/ai-assistant-panel';
 
 function TemplateDetailCard({ template, isActive }: { template: NicheTemplate; isActive: boolean }) {
   return (
@@ -67,11 +68,12 @@ export default function PengaturanPage() {
   const t = template.terminology;
   const [view, setView] = useState<'info' | 'switch'>('info');
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [aiToolsOpen, setAiToolsOpen] = useState(false);
   const allTemplates = getTemplateList();
 
   return (
     <div style={styles.layout}>
-      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} onOpenAITools={() => {}} />
+      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} onOpenAITools={() => setAiToolsOpen(true)} />
       <main style={styles.mainArea}>
         <div style={styles.topbar}>
           <div style={styles.topbarLeft}>
@@ -229,6 +231,8 @@ export default function PengaturanPage() {
       </div>
     </div>
       </main>
+
+      <AIAssistantPanel isOpen={aiToolsOpen} onClose={() => setAiToolsOpen(false)} />
     </div>
   );
 }

@@ -5,6 +5,7 @@ import { useTemplate } from '@/components/template-provider';
 import { BRAND } from '@/lib/branding';
 import { Sidebar } from '@/components/sidebar';
 import { ThemeToggle } from '@/components/theme-toggle';
+import { AIAssistantPanel } from '@/components/ai-assistant-panel';
 import { Archive, Search, UserCheck } from 'lucide-react';
 import type { Client as ClientType } from '@/lib/types';
 
@@ -28,6 +29,7 @@ export default function KlienTidakAktifPage() {
   const [clients, setClients] = useState<ClientType[]>([]);
   const [search, setSearch] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [aiToolsOpen, setAiToolsOpen] = useState(false);
 
   useEffect(() => {
     fetch('/api/clients?status=inactive')
@@ -62,7 +64,7 @@ export default function KlienTidakAktifPage() {
 
   return (
     <div style={styles.layout}>
-      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} onOpenAITools={() => {}} />
+      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} onOpenAITools={() => setAiToolsOpen(true)} />
       <main style={styles.main}>
         <div style={styles.topbar}>
           <div style={styles.topbarLeft}>
@@ -129,6 +131,8 @@ export default function KlienTidakAktifPage() {
           </div>
         )}
       </main>
+
+      <AIAssistantPanel isOpen={aiToolsOpen} onClose={() => setAiToolsOpen(false)} />
     </div>
   );
 }
